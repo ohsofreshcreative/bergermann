@@ -9,7 +9,7 @@
 
 	@if(!empty($g_logos['header']))
 	<div class="__wrapper c-main relative">
-		<h4 data-gsap-element="header" class="w-full text-primary md:w-1/2 mb-8">{{ $g_logos['header'] }}</h4>
+		<h4 data-gsap-element="header" class="w-full text-center mb-8">{{ $g_logos['header'] }}</h4>
 	</div>
 	@endif
 
@@ -20,7 +20,7 @@
 
 			@for ($copy = 0; $copy < 4; $copy++)
 				@foreach ($g_logos['gallery'] as $image)
-				<div class="bg-white flex items-center justify-center p-4 rounded-[12px] shadow-sm w-48 h-24 shrink-0 mr-8" @if($copy> 0) aria-hidden="true" @endif>
+				<div class="flex items-center justify-center p-4 w-48 h-24 shrink-0 mr-8" @if($copy> 0) aria-hidden="true" @endif>
 				<img src="{{ $image['url'] }}" alt="{{ $image['alt'] ?? '' }}" class="max-h-12 w-auto max-w-[80%] object-contain transition-all duration-300">
 		</div>
 		@endforeach

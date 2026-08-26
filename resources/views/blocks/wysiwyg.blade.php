@@ -11,7 +11,7 @@
 
 	<div class="__wrapper c-main relative">
 		@if (!empty($g_wysiwyg['header']))
-		<h4 data-gsap-element="header" class="text-primary">{{ $g_wysiwyg['header'] }}</h4>
+		<h4 data-gsap-element="header" class="">{{ $g_wysiwyg['header'] }}</h4>
 		@endif
 
 		<div>

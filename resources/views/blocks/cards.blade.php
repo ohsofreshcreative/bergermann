@@ -11,7 +11,7 @@
 
 	<div class="__wrapper c-main">
 		<div class="__top">
-			<h2 data-gsap-element="header" class="m-header">{{ strip_tags($g_cards['header']) }}</h2>
+			<h3 data-gsap-element="header" class="m-header">{{ strip_tags($g_cards['header']) }}</h3>
 			<p data-gsap-element="text">{{ $g_cards['text'] }}</p>
 		</div>
 
@@ -27,13 +27,19 @@
 
 		<div class="grid {{ $gridClass }} gap-8 mt-10">
 			@foreach ($r_cards as $item)
-			<div data-gsap-element="card" class="__card relative bg-white p-8">
+			<div data-gsap-element="card" class="__card relative bg-white p-6">
 				@if (!empty($item['image']['url']))
 				<img class="mb-6" src="{{ $item['image']['url'] }}" alt="{{ $item['image']['alt'] ?? '' }}" />
+				@else
+				<div class="text-h6 !text-primary mb-2">
+					{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}
+				</div>
 				@endif
+
 				@if (!empty($item['title']))
-				<p class="text-h5">{{ $item['title'] }}</p>
+				<p class="text-h7">{{ $item['title'] }}</p>
 				@endif
+
 				@if (!empty($item['text']))
 				<p>{{ $item['text'] }}</p>
 				@endif

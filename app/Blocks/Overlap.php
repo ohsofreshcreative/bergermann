@@ -29,15 +29,6 @@ class Overlap extends Block
 
 		$overlap
 			->setLocation('block', '==', 'acf/overlap') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Treść oraz duże kafelki',
-				'open' => false,
-				'multi_expand' => true,
-			])
 
 			/*--- TAB #1 ---*/
 			->addTab('Elementy', ['placement' => 'top'])
@@ -120,17 +111,9 @@ class Overlap extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -151,7 +134,7 @@ class Overlap extends Block
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

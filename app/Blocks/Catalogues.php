@@ -27,15 +27,6 @@ class Catalogues extends Block
 
 		$catalogues
 			->setLocation('block', '==', 'acf/catalogues')
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Katalogi',
-				'open' => false,
-				'multi_expand' => true,
-			])
 
 			/*--- TAB #2 ---*/
 			->addTab('Grupy katalogów', ['placement' => 'top'])
@@ -108,15 +99,7 @@ class Catalogues extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
 				'ui' => 0,
 				'allow_null' => 0,
@@ -143,7 +126,7 @@ class Catalogues extends Block
             'gap' => (bool) get_field('gap'),
             'nolist' => (bool) get_field('nolist'),
 
-            'background' => get_field('background') ?: 'none',
+            'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
         ];
 
         // Ta linijka załatwia wygenerowanie wszystkich klas (w tym -smb dla mb) automatycznie!

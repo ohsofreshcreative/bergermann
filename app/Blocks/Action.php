@@ -8,36 +8,27 @@ use App\Support\SectionClasses;
 
 class Action extends Block
 {
-	public $name = 'CTA - Wpis';
-	public $description = 'action';
+	public $name = 'Action';
+	public $description = 'Sekcja z wezwaniem do działania';
 	public $slug = 'action';
 	public $category = 'formatting';
 	public $icon = 'align-pull-left';
-	public $keywords = ['tresc', 'zdjecie'];
+	public $keywords = ['action', 'cta', 'tresc', 'zdjecie'];
 	public $mode = 'edit';
-public $supports = [
-    'align' => false,
-    'mode' => true,
-    'jsx' => true,
-    'anchor' => true,
-    'customClassName' => true,
-];
+	public $supports = [
+		'align' => false,
+		'mode' => true,
+		'jsx' => true,
+		'anchor' => true,
+		'customClassName' => true,
+	];
 
 	public function fields()
 	{
 		$action = new FieldsBuilder('action');
 
 		$action
-			->setLocation('block', '==', 'acf/action') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'CTA - Wpis',
-				'open' => false,
-				'multi_expand' => true,
-			])
+			->setLocation('block', '==', 'acf/action')
 			/*--- GROUP ---*/
 			->addTab('Elementy', ['placement' => 'top'])
 			->addGroup('g_action', ['label' => ''])
@@ -68,18 +59,6 @@ public $supports = [
 			->addText('section_class', [
 				'label' => 'Dodatkowe klasy CSS',
 			])
-			->addTrueFalse('bgshape', [
-				'label' => 'Kształt w tle',
-				'ui' => 1,
-				'ui_on_text' => 'Tak',
-				'ui_off_text' => 'Nie',
-			])
-			->addTrueFalse('nolist', [
-				'label' => 'Brak punktatorów',
-				'ui' => 1,
-				'ui_on_text' => 'Tak',
-				'ui_off_text' => 'Nie',
-			])
 			->addTrueFalse('flip', [
 				'label' => 'Odwrotna kolejność',
 				'ui' => 1,
@@ -106,16 +85,9 @@ public $supports = [
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -125,19 +97,17 @@ public $supports = [
 	public function with(): array
 	{
 		$fields = [
-			'g_action' => get_field('g_action'),
+			'g_action' => get_field('g_action') ?: [],
 
 			'section_id' => get_field('section_id'),
 			'section_class' => get_field('section_class'),
 
-			'bgshape' => (bool) get_field('bgshape'),
 			'flip' => (bool) get_field('flip'),
 			'wide' => (bool) get_field('wide'),
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
-			'nolist' => (bool) get_field('nolist'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [
@@ -145,7 +115,6 @@ public $supports = [
 			'wide' => 'wide',
 			'nomt' => '!mt-0',
 			'gap' => 'wider-gap',
-			'nolist' => 'no-list',
 		]);
 
 		return $fields;

@@ -27,15 +27,6 @@ class Reviews extends Block
 
 		$reviews
 			->setLocation('block', '==', 'acf/reviews') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Slider - Opinie',
-				'open' => false,
-				'multi_expand' => true,
-			])
 			/*--- FIELDS ---*/
 			->addTab('Treści', ['placement' => 'top'])
 			->addGroup('g_reviews', ['label' => ''])
@@ -66,17 +57,9 @@ class Reviews extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -87,6 +70,7 @@ class Reviews extends Block
 	{
 		$fields = [
 			'header'    => get_field('header', 'option'),
+			'info'      => get_field('info', 'option'),
 			'r_reviews' => get_field('r_reviews', 'option') ?: [],
 
 			'section_id' => get_field('section_id'),
@@ -96,7 +80,7 @@ class Reviews extends Block
 			'wide' => (bool) get_field('wide'),
 			'nomt' => (bool) get_field('nomt'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

@@ -21,12 +21,11 @@ const initReviewPopup = (scope = document) => {
   reviewCards.forEach(card => {
     const textElement = card.querySelector('.__txt');
     const moreButton = card.querySelector('.btn-more');
-    const authorElement = card.querySelector('.font-header');
+    const authorElement = card.querySelector('.review-author');
 
     if (!textElement || !moreButton || !authorElement) return;
 
     // Pokaż przycisk "Zobacz całość", jeśli tekst jest obcięty
-    // Używamy setTimeout, aby dać czas na renderowanie
     setTimeout(() => {
       if (textElement.scrollHeight > textElement.clientHeight) {
         moreButton.classList.remove('hidden');

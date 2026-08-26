@@ -26,43 +26,83 @@ $sectionClass .= $flip ? ' order-flip' : '';
 $unique_id = 'clip_'.uniqid();
 @endphp
 
-<div class="hero category-header relative">
-	@if(!empty($category_image['url']))
-	<figure class="absolute inset-0 m-0 z-0">
-		<picture>
-			<img src="{{ $category_image['url'] }}" alt="" class="w-full h-full object-cover object-center">
-		</picture>
-	</figure>
-	@endif
-	<div class="absolute inset-0 bg-primary @if(!empty($category_image['url'])) opacity-80 @endif"></div>
-	<div data-gsap-element="bread" class="__breadcrumb mb-4">
+<div class="hero category-header relative bg-secondary-700">
+	<div class="__wrapper c-main relative z-10">
 		@if (function_exists('yoast_breadcrumb'))
-		{!! yoast_breadcrumb('<p id="breadcrumbs">','</p>') !!}
+		<div data-gsap-element="bread" class="__breadcrumb text-primary [&_#breadcrumbs]:flex-wrap [&_a]:text-white">
+			{!! yoast_breadcrumb('<p id="breadcrumbs" class="!pt-4">', '</p>', false) !!}
+		</div>
 		@endif
-	</div>
-	<div class="__wrapper c-main relative z-10 pt-60 pb-26">
-		<div class="__content w-full md:w-2/3">
-			<h2 class="text-white m-header">
-				{!! $category_header ?: get_the_archive_title() !!}
-			</h2>
-			@if ($category_description)
-			<div class="text-white text-xl">
-				{!! $category_description !!}
+		<div class="__wrapper pt-10 pb-20">
+			<div class="__content w-full md:w-2/3">
+				<h2 class="text-white m-header">
+					{!! $category_header ?: get_the_archive_title() !!}
+				</h2>
+				@if ($category_description)
+				<div class="text-white text-xl">
+					{!! $category_description !!}
+				</div>
+				@endif
 			</div>
-			@endif
+
+			<form role="search" method="get" class="__search relative mt-6 max-w-sm" action="{{ home_url('/') }}">
+				<label class="sr-only" for="blog-search">
+					{{ _x('Szukaj', 'label', 'sage') }}
+				</label>
+				<input
+					type="search"
+					id="blog-search"
+					name="s"
+					value="{{ get_search_query() }}"
+					placeholder="Szukaj wpisów…"
+					class="w-full bg-white px-4 py-2 pr-12 text-sm"
+				>
+				<input type="hidden" name="post_type" value="post">
+				<button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 p-2">
+					<span class="sr-only">{{ _x('Szukaj', 'submit button', 'sage') }}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+						<circle cx="11" cy="11" r="7"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+				</button>
+			</form>
+
+			<div id="category-tabs" class="category-tabs z-20 relative mt-4">
+				<div class="flex flex-wrap gap-2 items-center">
+					<div class="flex flex-wrap gap-2 items-center !text-[14px] tracking-wide">
+						<a href="/category/baza-wiedzy" @class(['__tab flex-shrink-0 block px-4 py-2', 'bg-primary'=> is_category('baza-wiedzy'), 'bg-white' => !is_category('baza-wiedzy')])>Baza wiedzy</a>
+						@foreach($categories as $category)
+						@if($category->name !== 'Baza wiedzy')
+						@php $isActive = $term && $term->term_id === $category->term_id; @endphp
+						<a href="{{ get_category_link($category->term_id) }}" @class(['__tab flex-shrink-0 block px-4 py-2', 'bg-primary'=> $isActive, 'bg-white' => !$isActive])>{{ $category->name }}</a>
+						@endif
+						@endforeach
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+
+	<div class="__decor pointer-events-none absolute inset-0 z-20 hidden lg:block" aria-hidden="true">
+		<span class="absolute top-0 left-[67%] size-[64px] bg-white"></span>
+		<span class="absolute top-[20%] right-[5.5%] size-[64px] bg-secondary-300"></span>
+		<span class="absolute top-[46%] left-[56.5%] size-[64px] bg-primary"></span>
+		<span class="absolute right-[2.5%] bottom-0 size-[64px] bg-primary-100"></span>
+		<span class="absolute top-[170px] left-1/2 size-[64px] bg-secondary-700"></span>
+	</div>
 </div>
-
-</div>
-
-
 
 @if (have_posts())
 <div class="__posts c-main !mt-10 posts grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-	@while (have_posts()) @php(the_post())
+	@while (have_posts())
+	@php
+	the_post();
+	@endphp
 
-	@includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
+	@includeFirst([
+	'partials.content-' . get_post_type(),
+	'partials.content',
+	])
 	@endwhile
 </div>
 
@@ -71,70 +111,23 @@ $unique_id = 'clip_'.uniqid();
 @else
 <div class="mt-20 mb-20">
 	<div class="c-main">
-		<h3 class="">Brak wpisów w tej kategorii.</h3>
-		<a class="main-btn m-btn" href="/wszystkie-wpisy/">Sprawdź wszystkie wpisy</a>
+		<h3>Brak wpisów w tej kategorii.</h3>
+		<a class="main-btn m-btn" href="/wszystkie-wpisy/">
+			Sprawdź wszystkie wpisy
+		</a>
 	</div>
 </div>
 @endif
 
-<!-- bottom-block -->
-
-<section class="b-cta relative -smt">
-
-	<div class="__wrapper relative overflow-hidden">
-
-		@if (!empty($cta['image']['url']))
-		<figure class="absolute inset-0 m-0 z-0">
-			<picture>
-				<img src="{{ $cta['image']['url'] }}" alt="" class="w-full h-full object-cover object-right">
-			</picture>
-		</figure>
-		@endif
-
-		<div class="absolute top-0 left-0 bottom-0 z-10 w-full md:w-[75%]" style="border-radius: 0 0 9999px 0; background: linear-gradient(90deg, #2265CB 0%, #181D84 100%);"></div>
-
-		<div class="__inside c-main grid grid-cols-1 md:grid-cols-2 items-center gap-6 relative z-20">
-			<div class="__content w-full py-52">
-				@if (!empty($cta['header']))
-				<p data-gsap-element="header" class="block text-h3 text-white !m-header">{{ $cta['header'] }}</p>
-				@endif
-				@if (!empty($cta['txt']))
-				<div data-gsap-element="txt" class="text-white">{!! $cta['txt'] !!}</div>
-				@endif
-
-				<div class="inline-buttons m-btn">
-					@if (!empty($cta['button1']))
-					<x-button
-						:href="$cta['button1']['url']"
-						variant="white"
-						class=""
-						data-gsap-element="btn">
-						{{ $cta['button1']['title'] }}
-					</x-button>
-					@endif
-
-					@if (!empty($cta['button2']))
-					<x-button
-						:href="$cta['button2']['url']"
-						variant="secondary"
-						class=""
-						data-gsap-element="btn">
-						{{ $cta['button2']['title'] }}
-					</x-button>
-					@endif
-				</div>
-			</div>
-
-			<!-- 	@if ($form)
-			<div data-gsap-element="form" class="bg-white radius p-10 -mt-20 md:-mt-0 mb-30 md:mb-0">
-				<h4 class="!text-primary mb-4">{!! $cta['title'] !!}</h4>
-				{!! do_shortcode($cta['shortcode']) !!}
-			</div>
-			@endif -->
-		</div>
-
-	</div>
-
-</section>
+<!-- cta -->
+@php
+$g_octa = get_field('g_octa', 'option');
+$form = true;
+$sectionClass = '-smt';
+$section_id = '';
+$section_class = '';
+$background = 'none';
+@endphp
+@include('blocks.cta')
 
 @endsection

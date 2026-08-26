@@ -9,17 +9,19 @@ use App\Support\SectionClasses;
 class Hero extends Block
 {
 	public $name = 'Hero';
-	public $description = 'Hero';
+	public $description = 'hero';
 	public $slug = 'hero';
 	public $category = 'formatting';
-	public $icon = 'align-full-width';
+	public $icon = 'align-pull-left';
 	public $keywords = ['tresc', 'zdjecie'];
 	public $mode = 'edit';
-	public $supports = [
-		'align' => false,
-		'mode' => true,
-		'jsx' => true,
-	];
+public $supports = [
+    'align' => false,
+    'mode' => true,
+    'jsx' => true,
+    'anchor' => true,
+    'customClassName' => true,
+];
 
 	public function fields()
 	{
@@ -27,32 +29,19 @@ class Hero extends Block
 
 		$hero
 			->setLocation('block', '==', 'acf/hero') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Hero',
-				'open' => false,
-				'multi_expand' => true,
-			])
-			/*--- TAB #1 ---*/
-			->addTab('Treść', ['placement' => 'top'])
-			->addGroup('g_hero', ['label' => 'Hero'])
+			/*--- GROUP ---*/
+			->addTab('Elementy', ['placement' => 'top'])
+			->addGroup('g_hero', ['label' => ''])
 			->addImage('image', [
 				'label' => 'Obraz',
 				'return_format' => 'array',
 				'preview_size' => 'thumbnail',
 			])
-			->addFile('video', [
-				'label' => 'Wideo (w tle)',
-				'return_format' => 'url',
-			])
-			->addText('title', ['label' => 'Tytuł'])
+			->addText('header', ['label' => 'Nagłówek'])
 			->addWysiwyg('text', [
 				'label' => 'Treść',
-				'tabs' => 'all', // 'visual', 'text', 'all'
-				'toolbar' => 'full', // 'basic', 'full'
+				'tabs' => 'all',
+				'toolbar' => 'full',
 				'media_upload' => true,
 			])
 			->addLink('button1', [
@@ -73,6 +62,12 @@ class Hero extends Block
 			])
 			->addText('section_class', [
 				'label' => 'Dodatkowe klasy CSS',
+			])
+			->addTrueFalse('bgshape', [
+				'label' => 'Kształt w tle',
+				'ui' => 1,
+				'ui_on_text' => 'Tak',
+				'ui_off_text' => 'Nie',
 			])
 			->addTrueFalse('nolist', [
 				'label' => 'Brak punktatorów',
@@ -106,17 +101,9 @@ class Hero extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -131,12 +118,14 @@ class Hero extends Block
 			'section_id' => get_field('section_id'),
 			'section_class' => get_field('section_class'),
 
+			'bgshape' => (bool) get_field('bgshape'),
 			'flip' => (bool) get_field('flip'),
 			'wide' => (bool) get_field('wide'),
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
+			'nolist' => (bool) get_field('nolist'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [
@@ -144,6 +133,7 @@ class Hero extends Block
 			'wide' => 'wide',
 			'nomt' => '!mt-0',
 			'gap' => 'wider-gap',
+			'nolist' => 'no-list',
 		]);
 
 		return $fields;

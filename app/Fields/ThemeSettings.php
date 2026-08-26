@@ -13,6 +13,15 @@ class ThemeSettings extends Field
 
 		$theme
 			->setLocation('options_page', '==', 'theme-settings')
+			->addTab('Layout', ['placement' => 'top'])
+			->addSelect('default_block_background', [
+				'label' => 'Domyślne tło bloków',
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
+				'default_value' => 'none',
+				'ui' => 0,
+				'allow_null' => 0,
+			])
+
 			->addTab('Logo', ['placement' => 'top'])
 			->addImage('logo', [
 				'label' => 'Logo',
@@ -32,6 +41,12 @@ class ThemeSettings extends Field
 
 			->addWysiwyg('address', [
 				'label' => 'Adres / Dane firmy',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => true,
+			])
+			->addWysiwyg('hours', [
+				'label' => 'Godziny otwarcia',
 				'tabs' => 'all',
 				'toolbar' => 'full',
 				'media_upload' => true,

@@ -21,6 +21,13 @@
 		right: 0;
 		top: -80px;
 	}
+
+	.__info {
+		strong, b {
+			font-weight: 600;
+			color: var(--color-primary);
+		}
+	}
 }
 
 .line-clamp-6 {

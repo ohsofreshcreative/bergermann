@@ -8,17 +8,19 @@ use App\Support\SectionClasses;
 
 class Values extends Block
 {
-	public $name = 'Dlaczego warto';
+	public $name = 'Tekst i kafelki z ikoną';
 	public $description = 'values';
 	public $slug = 'values';
 	public $category = 'formatting';
-	public $icon = 'image-flip-horizontal';
-	public $keywords = ['values', 'kafelki'];
+	public $icon = 'warning';
+	public $keywords = ['tresc', 'kafelki', 'ikony'];
 	public $mode = 'edit';
 	public $supports = [
 		'align' => false,
 		'mode' => true,
 		'jsx' => true,
+		'anchor' => true,
+		'customClassName' => true,
 	];
 
 	public function fields()
@@ -27,19 +29,9 @@ class Values extends Block
 
 		$values
 			->setLocation('block', '==', 'acf/values') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Dlaczego warto',
-				'open' => false,
-				'multi_expand' => true,
-			])
-			/*--- FIELDS ---*/
+			/*--- TAB #1 ---*/
 			->addTab('Treści', ['placement' => 'top'])
 			->addGroup('g_values', ['label' => ''])
-
 			->addText('header', ['label' => 'Nagłówek'])
 			->addWysiwyg('text', [
 				'label' => 'Treść',
@@ -47,35 +39,31 @@ class Values extends Block
 				'toolbar' => 'full',
 				'media_upload' => true,
 			])
+			->endGroup()
 
+			/*--- TAB #2 ---*/
+			->addTab('Kafelki', ['placement' => 'top'])
 			->addRepeater('r_values', [
-				'label' => 'values',
+				'label' => 'Kafelki',
 				'layout' => 'table', // 'row', 'block', albo 'table'
 				'min' => 1,
-				'max' => 10,
-				'button_label' => 'Dodaj kafelek'
-			])
-			->addImage('image', [
-				'label' => 'Zdjęcie - tło',
-				'return_format' => 'array', // lub 'url', lub 'id'
-				'preview_size' => 'thumbnail',
+				'max' => 6,
+				'button_label' => 'Dodaj kafelek',
 			])
 			->addImage('icon', [
-				'label' => 'Ikonka',
+				'label' => 'Ikona',
 				'return_format' => 'array',
 				'preview_size' => 'thumbnail',
 			])
-			->addText('header', [
+			->addText('title', [
 				'label' => 'Nagłówek',
 			])
-			->addTextarea('opis', [
+			->addTextarea('text', [
 				'label' => 'Opis',
-				'rows' => 4,
+				'rows' => 3,
 				'new_lines' => 'br',
 			])
 			->endRepeater()
-
-			->endGroup()
 
 			/*--- USTAWIENIA BLOKU ---*/
 
@@ -86,8 +74,8 @@ class Values extends Block
 			->addText('section_class', [
 				'label' => 'Dodatkowe klasy CSS',
 			])
-			->addTrueFalse('nolist', [
-				'label' => 'Brak punktatorów',
+			->addTrueFalse('normal', [
+				'label' => 'Normalny grid',
 				'ui' => 1,
 				'ui_on_text' => 'Tak',
 				'ui_off_text' => 'Nie',
@@ -118,17 +106,25 @@ class Values extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
+				'allow_null' => 0,
+			])
+			->addTrueFalse('icon_left', [
+				'label' => 'Ikona po lewej',
+				'ui' => 1,
+				'ui_on_text' => 'Tak',
+				'ui_off_text' => 'Nie',
+			])
+			->addSelect('columns', [
+				'label' => 'Liczba kafelków w wierszu',
+				'choices' => [
+					2 => '2',
+					3 => '3',
+				],
+				'default_value' => 3,
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -139,7 +135,10 @@ class Values extends Block
 	{
 		$fields = [
 			'g_values' => get_field('g_values'),
-			'values' => get_field('g_values')['r_values'] ?? [],
+			'r_values' => get_field('r_values'),
+			'normal' => (bool) get_field('normal'),
+			'icon_left' => (bool) get_field('icon_left'),
+			'columns' => get_field('columns') ?: 3,
 
 			'section_id' => get_field('section_id'),
 			'section_class' => get_field('section_class'),
@@ -148,9 +147,8 @@ class Values extends Block
 			'wide' => (bool) get_field('wide'),
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
-			'nolist' => (bool) get_field('nolist'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [
@@ -158,7 +156,6 @@ class Values extends Block
 			'wide' => 'wide',
 			'nomt' => '!mt-0',
 			'gap' => 'wider-gap',
-			'nolist' => 'no-list',
 		]);
 
 		return $fields;

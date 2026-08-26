@@ -29,15 +29,6 @@ class Logos extends Block
 
         $logos
             ->setLocation('block', '==', 'acf/logos')
-            ->addText('block-title', [
-                'label' => 'Tytuł',
-                'required' => 0,
-            ])
-            ->addAccordion('accordion1', [
-                'label' => 'Logotypy partnerów',
-                'open' => false,
-                'multi_expand' => true,
-            ])
             ->addTab('Elementy', ['placement' => 'top'])
             ->addMessage('Informacja', 'Logotypy edytujemy klikając w menu panelu administratora „Logotypy partnerów".')
 
@@ -70,21 +61,13 @@ class Logos extends Block
                 'ui_on_text' => 'Tak',
                 'ui_off_text' => 'Nie',
             ])
-            ->addSelect('background', [
-                'label' => 'Kolor tła',
-                'choices' => [
-                    'none' => 'Brak (domyślne)',
-                    'section-white' => 'Białe',
-                    'section-light' => 'Jasne',
-                    'section-gray' => 'Szare',
-                    'section-brand' => 'Marki',
-                    'section-gradient' => 'Gradient',
-                    'section-dark' => 'Ciemne',
-                ],
-                'default_value' => 'none',
-                'ui' => 0,
-                'allow_null' => 0,
-            ]);
+           ->addSelect('background', [
+				'label' => 'Kolor tła',
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
+				'default_value' => 'none',
+				'ui' => 0,
+				'allow_null' => 0,
+			]);
 
         return $logos;
     }
@@ -102,7 +85,7 @@ class Logos extends Block
             'nomt' => (bool) get_field('nomt'),
             'gap' => (bool) get_field('gap'),
 
-            'background' => get_field('background') ?: 'none',
+            'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
         ];
 
         $fields['sectionClass'] = SectionClasses::fromMap($fields, [

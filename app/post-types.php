@@ -1,6 +1,6 @@
 <?php
 
-/*--- CPT - Produkty ---*/
+/*--- CPT - Ofera ---*/
 
 add_action('init', function () {
 	register_post_type('offer', [
@@ -23,7 +23,7 @@ add_action('init', function () {
 		],
 		'public'        => true,
 		'hierarchical'  => true,
-		'has_archive'   => true,
+		'has_archive'   => false,
 		'menu_icon'     => 'dashicons-cart',
 		'menu_position' => 20,
 		'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'],
@@ -82,3 +82,67 @@ add_action('manage_offer_posts_custom_column', function ($column, $post_id) {
 		}
 	}
 }, 10, 2);
+
+/*--- CPT - Oferty pracy ---*/
+
+add_action('init', function () {
+	register_post_type('praca', [
+		'label'         => 'Oferty pracy',
+		'labels'        => [
+			'name'               => 'Oferty pracy',
+			'singular_name'      => 'Oferta pracy',
+			'menu_name'          => 'Oferty pracy',
+			'all_items'          => 'Wszystkie oferty pracy',
+			'add_new'            => 'Dodaj nową',
+			'add_new_item'       => 'Dodaj nową ofertę pracy',
+			'edit_item'          => 'Edytuj ofertę pracy',
+			'new_item'           => 'Nowa oferta pracy',
+			'view_item'          => 'Zobacz ofertę pracy',
+			'view_items'         => 'Zobacz oferty pracy',
+			'search_items'       => 'Szukaj ofert pracy',
+			'not_found'          => 'Nie znaleziono ofert pracy',
+			'not_found_in_trash' => 'Brak ofert pracy w koszu',
+			'parent_item_colon'  => 'Oferta pracy nadrzędna:',
+		],
+		'public'        => true,
+		'hierarchical'  => true,
+		'has_archive'   => false,
+		'menu_icon'     => 'dashicons-businessperson',
+		'menu_position' => 21,
+		'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'],
+		'show_in_rest'  => true,
+		'rewrite'       => ['slug' => 'praca', 'with_front' => false],
+	]);
+});
+
+/*--- CPT - Sektory ---*/
+
+add_action('init', function () {
+	register_post_type('sektor', [
+		'label'         => 'Sektor',
+		'labels'        => [
+			'name'               => 'Sektory',
+			'singular_name'      => 'Sektor',
+			'menu_name'          => 'Sektory',
+			'all_items'          => 'Wszystkie sektory',
+			'add_new'            => 'Dodaj nowy',
+			'add_new_item'       => 'Dodaj nowy sektor',
+			'edit_item'          => 'Edytuj sektor',
+			'new_item'           => 'Nowy sektor',
+			'view_item'          => 'Zobacz sektor',
+			'view_items'         => 'Zobacz sektory',
+			'search_items'       => 'Szukaj sektorów',
+			'not_found'          => 'Nie znaleziono sektorów',
+			'not_found_in_trash' => 'Brak sektorów w koszu',
+			'parent_item_colon'  => 'Sektor nadrzędny:',
+		],
+		'public'        => true,
+		'hierarchical'  => true,
+		'has_archive'   => false,
+		'menu_icon'     => 'dashicons-networking',
+		'menu_position' => 22,
+		'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'],
+		'show_in_rest'  => true,
+		'rewrite'       => ['slug' => 'sektor', 'with_front' => false],
+	]);
+});

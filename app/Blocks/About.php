@@ -29,15 +29,6 @@ public $supports = [
 
 		$about
 			->setLocation('block', '==', 'acf/about') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'O firmie',
-				'open' => false,
-				'multi_expand' => true,
-			])
 			/*--- GROUP ---*/
 			->addTab('Elementy', ['placement' => 'top'])
 			->addGroup('g_about', ['label' => ''])
@@ -66,13 +57,19 @@ public $supports = [
 			/*--- TAB #2 ---*/
 			->addTab('Kafelki', ['placement' => 'top'])
 			->addRepeater('r_about', [
-				'label' => 'Kafelki',
+				'label' => 'Rozwijane panele',
 				'layout' => 'table', // 'row', 'block', albo 'table'
 				'min' => 1,
-				'button_label' => 'Dodaj kafelek'
+				'button_label' => 'Dodaj panel',
 			])
 			->addText('title', [
-				'label' => 'Nagłówek',
+				'label' => 'Tytuł',
+			])
+			->addWysiwyg('text', [
+				'label' => 'Treść',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => true,
 			])
 			->endRepeater()
 
@@ -117,17 +114,9 @@ public $supports = [
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -149,7 +138,7 @@ public $supports = [
 			'gap' => (bool) get_field('gap'),
 			'nolist' => (bool) get_field('nolist'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

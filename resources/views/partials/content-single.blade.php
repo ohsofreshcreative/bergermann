@@ -3,29 +3,17 @@ $categories = get_the_category();
 $category = !empty($categories) ? $categories[0] : null;
 @endphp
 
-<section data-gsap-anim="section" class="hero-blog bg-gradient relative overflow-visible">
+<section data-gsap-anim="section" class="hero-blog relative flex flex-col overflow-hidden bg-secondary-700">
 
-	@if(has_post_thumbnail())
-	<figure class="absolute inset-0 w-full h-full z-0 m-0">
-		<picture class="w-full h-full">
-			<img src="{{ get_the_post_thumbnail_url(get_the_ID(), 'large') }}" alt="{{ get_the_title() }}" class="w-full h-full object-cover" />
-		</picture>
-	</figure>
-	<div class="absolute inset-0 z-1 pointer-events-none" style="background: linear-gradient(90deg, #171F87 0%, rgba(23, 31, 135, 0.60) 100%);"></div>
-	@endif
-
-	<div class="__wrapper c-main relative z-10 -spt">
-		<div class="__content w-full pb-30">
-			<div data-gsap-element="bread" class="__breadcrumb">
-				@if (function_exists('woocommerce_breadcrumb'))
-				{!! woocommerce_breadcrumb() !!}
-				@endif
+	<div class="__wrapper c-main relative z-10">
+		<div class="__content w-full md:w-1/2 pb-20">
+			@if (function_exists('yoast_breadcrumb'))
+			<div data-gsap-element="bread" class="__breadcrumb text-primary [&_#breadcrumbs]:flex-wrap [&_a]:text-white lg:mb-16">
+				{!! yoast_breadcrumb('<p id="breadcrumbs">', '</p>', false) !!}
 			</div>
+			@endif
 
 			<div class="__top mt-20">
-				@if ($category)
-				<a data-gsap-element="header" href="{{ get_category_link($category->term_id) }}" class="bg-secondary-lighter hover:bg-secondary-light border border-primary-light rounded-full text-sm px-4 py-3">{{ $category->name }}</a>
-				@endif
 				<h1 data-gsap-element="header" class="text-h2 text-white mt-6">{{ get_the_title() }}</h1>
 				@if(has_excerpt())
 				<div data-gsap-element="content" class="text-white mt-4">
@@ -34,14 +22,21 @@ $category = !empty($categories) ? $categories[0] : null;
 				@endif
 			</div>
 		</div>
-		<a class="absolute bg-secondary hover:bg-secondary-hover w-20 h-20 rounded-full flex items-center justify-center mx-auto bottom-0 translate-y-1/2 z-20" href="#tresc"><img src="{{ get_template_directory_uri() }}/resources/images/anchor-arrow.svg" /></a>
+	</div>
+
+	<div class="__decor pointer-events-none absolute inset-0 z-20 hidden lg:block" aria-hidden="true">
+		<span class="absolute top-0 left-[67%] size-[64px] bg-white"></span>
+		<span class="absolute top-[20%] right-[5.5%] size-[64px] bg-secondary-300"></span>
+		<span class="absolute top-[46%] left-[56.5%] size-[64px] bg-primary"></span>
+		<span class="absolute right-[2.5%] bottom-0 size-[64px] bg-primary-100"></span>
+		<span class="absolute top-[170px] left-1/2 size-[64px] bg-secondary-700"></span>
 	</div>
 </section>
 
 @php
 $content = apply_filters('the_content', get_the_content());
 
-preg_match_all('/<h([1-4])[^>]*>(.*?)<\/h[1-4]>/', $content, $matches, PREG_SET_ORDER);
+preg_match_all('/<h([1-5])[^>]*>(.*?)<\/h\1>/is', $content, $matches, PREG_SET_ORDER);
 
 		$toc = '<nav class="toc">
 			<ul>';
@@ -77,60 +72,37 @@ preg_match_all('/<h([1-4])[^>]*>(.*?)<\/h[1-4]>/', $content, $matches, PREG_SET_
 					</div>
 
 					<div id="tresc" class="__entry">
+						@if(has_post_thumbnail())
+						<figure class="">
+							<picture class="w-full h-full">
+								<img src="{{ get_the_post_thumbnail_url(get_the_ID(), 'large') }}" alt="{{ get_the_title() }}" class="w-full h-full max-h-[400px] object-cover" />
+							</picture>
+						</figure>
+						@endif
+
 						{!! $content !!}
 					</div>
 
 					</div>
 
+					<!-- related-posts -->
+					@include('partials.related-posts')
+
+					<!-- cta -->
 					@php
-					$current_id = get_the_ID();
-					$categories = wp_get_post_categories($current_id);
-					$related_args = [
-					'category__in' => $categories,
-					'post__not_in' => [$current_id],
-					'posts_per_page' => 3,
-					'ignore_sticky_posts' => 1,
-					];
-					$related_query = new WP_Query($related_args);
+					$g_octa = get_field('g_octa', 'option');
+					$form = true;
+					$sectionClass = '!mt-0';
+					$section_id = '';
+					$section_class = '';
+					$background = 'none';
 					@endphp
-
-					@if($related_query->have_posts())
-					<section class="related-posts c-main border-t border-dashed border-secondary-light -smt pt-20 pb-26">
-						<h3 class="text-2xl text-primary mb-6">Zobacz również</h3>
-						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-							@while($related_query->have_posts())
-							@php($related_query->the_post())
-							<article @php(post_class(''))>
-								<a class="rounded-2xl group" href="{{ get_permalink() }}">
-									<div class="__content relative bg-white rounded-4xl p-6">
-										@if (has_post_thumbnail())
-										<div class="block rounded-2xl overflow-hidden">
-											<img src="{{ get_the_post_thumbnail_url(null, 'large') }}" alt="{{ get_the_title() }}" class="w-full img-s object-cover">
-										</div>
-										@endif
-										<h6 class="mt-6">
-											{!! get_the_title() !!}
-										</h6>
-										<!--  <div class="mt-2">
-            @php(the_excerpt())
-        </div> -->
-										<p href="{{ get_permalink() }}" class="btn btn-outline-secondary group-hover:!bg-secondary group-hover:!text-white !px-6 !py-3 mt-4">
-											Przeczytaj
-										</p>
-									</div>
-								</a>
-
-							</article>
-							@endwhile
-							@php(wp_reset_postdata())
-						</div>
-					</section>
-					@endif
+					@include('blocks.cta')
 
 
 					<script>
 						document.addEventListener('DOMContentLoaded', function() {
-							const headings = document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]'); // Select all headings with IDs
+							const headings = document.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id]'); // Select all headings with IDs
 							const tocLinks = document.querySelectorAll('.toc ul li a'); // Select all links in the TOC
 
 							function updateActiveLink() {

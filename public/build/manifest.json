@@ -1,9 +1,9 @@
 {
-  "_pagination-Cdzpe9Bp.js": {
-    "file": "assets/pagination-Cdzpe9Bp.js",
+  "_pagination-C88VV8fh.js": {
+    "file": "assets/pagination-C88VV8fh.js",
     "name": "pagination",
     "imports": [
-      "_swiper-BYn8PY8Z.js"
+      "_swiper-ebX-QyT2.js"
     ],
     "css": [
       "assets/pagination-D8gyGEei.css"
@@ -13,23 +13,23 @@
     "file": "assets/pagination-D8gyGEei.css",
     "src": "_pagination-D8gyGEei.css"
   },
-  "_swiper-BYn8PY8Z.js": {
-    "file": "assets/swiper-BYn8PY8Z.js",
+  "_swiper-HzbfsHSZ.css": {
+    "file": "assets/swiper-HzbfsHSZ.css",
+    "src": "_swiper-HzbfsHSZ.css"
+  },
+  "_swiper-ebX-QyT2.js": {
+    "file": "assets/swiper-ebX-QyT2.js",
     "name": "swiper",
     "css": [
       "assets/swiper-HzbfsHSZ.css"
     ]
   },
-  "_swiper-HzbfsHSZ.css": {
-    "file": "assets/swiper-HzbfsHSZ.css",
-    "src": "_swiper-HzbfsHSZ.css"
-  },
   "editor.deps.json": {
-    "file": "assets/editor.deps-DxpY22xl.json",
+    "file": "assets/editor.deps-BqrDAOEV.json",
     "src": "editor.deps.json"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BSSoyJbW.css",
+    "file": "assets/app-UA8a7VgR.css",
     "name": "app",
     "names": [
       "app.css"
@@ -37,21 +37,102 @@
     "src": "resources/css/app.css",
     "isEntry": true,
     "assets": [
+      "assets/GeneralSans-Extralight-BH6gDHSS.otf",
+      "assets/GeneralSans-ExtralightItalic-IxN9evWj.otf",
+      "assets/GeneralSans-Light-CtRsu3bm.otf",
+      "assets/GeneralSans-LightItalic-Bhffglpx.otf",
+      "assets/GeneralSans-Regular-Dn3hZj8I.otf",
+      "assets/GeneralSans-Italic-BFXDoopQ.otf",
+      "assets/GeneralSans-Medium-Dnk_K_Tg.otf",
+      "assets/GeneralSans-MediumItalic-BLXnQNaZ.otf",
+      "assets/GeneralSans-Semibold-DQ6WvPG1.otf",
+      "assets/GeneralSans-SemiboldItalic-CmPRaFES.otf",
+      "assets/GeneralSans-Bold-BWHD35xo.otf",
+      "assets/GeneralSans-BoldItalic-BF1HKiy3.otf",
       "assets/btn-arrow-BCoyKg90.svg",
       "assets/bottom-arrow-BE5KB43S.svg",
       "assets/pointer-5_58814e.svg",
-      "assets/phone-HYNTkel6.svg",
-      "assets/mail-Cwopa4lM.svg"
+      "assets/check-CxAbcy4h.svg",
+      "assets/phone-2Yr8v-wi.svg",
+      "assets/mail-DTO3FXDf.svg"
     ]
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-DreEsV4Q.css",
+    "file": "assets/editor-BPKnnYHe.css",
     "name": "editor",
     "names": [
       "editor.css"
     ],
     "src": "resources/css/editor.css",
-    "isEntry": true
+    "isEntry": true,
+    "assets": [
+      "assets/GeneralSans-Extralight-BH6gDHSS.otf",
+      "assets/GeneralSans-ExtralightItalic-IxN9evWj.otf",
+      "assets/GeneralSans-Light-CtRsu3bm.otf",
+      "assets/GeneralSans-LightItalic-Bhffglpx.otf",
+      "assets/GeneralSans-Regular-Dn3hZj8I.otf",
+      "assets/GeneralSans-Italic-BFXDoopQ.otf",
+      "assets/GeneralSans-Medium-Dnk_K_Tg.otf",
+      "assets/GeneralSans-MediumItalic-BLXnQNaZ.otf",
+      "assets/GeneralSans-Semibold-DQ6WvPG1.otf",
+      "assets/GeneralSans-SemiboldItalic-CmPRaFES.otf",
+      "assets/GeneralSans-Bold-BWHD35xo.otf",
+      "assets/GeneralSans-BoldItalic-BF1HKiy3.otf",
+      "assets/btn-arrow-BCoyKg90.svg",
+      "assets/bottom-arrow-BE5KB43S.svg",
+      "assets/pointer-5_58814e.svg",
+      "assets/check-CxAbcy4h.svg",
+      "assets/phone-2Yr8v-wi.svg",
+      "assets/mail-DTO3FXDf.svg"
+    ]
+  },
+  "resources/fonts/GeneralSans-Bold.otf": {
+    "file": "assets/GeneralSans-Bold-BWHD35xo.otf",
+    "src": "resources/fonts/GeneralSans-Bold.otf"
+  },
+  "resources/fonts/GeneralSans-BoldItalic.otf": {
+    "file": "assets/GeneralSans-BoldItalic-BF1HKiy3.otf",
+    "src": "resources/fonts/GeneralSans-BoldItalic.otf"
+  },
+  "resources/fonts/GeneralSans-Extralight.otf": {
+    "file": "assets/GeneralSans-Extralight-BH6gDHSS.otf",
+    "src": "resources/fonts/GeneralSans-Extralight.otf"
+  },
+  "resources/fonts/GeneralSans-ExtralightItalic.otf": {
+    "file": "assets/GeneralSans-ExtralightItalic-IxN9evWj.otf",
+    "src": "resources/fonts/GeneralSans-ExtralightItalic.otf"
+  },
+  "resources/fonts/GeneralSans-Italic.otf": {
+    "file": "assets/GeneralSans-Italic-BFXDoopQ.otf",
+    "src": "resources/fonts/GeneralSans-Italic.otf"
+  },
+  "resources/fonts/GeneralSans-Light.otf": {
+    "file": "assets/GeneralSans-Light-CtRsu3bm.otf",
+    "src": "resources/fonts/GeneralSans-Light.otf"
+  },
+  "resources/fonts/GeneralSans-LightItalic.otf": {
+    "file": "assets/GeneralSans-LightItalic-Bhffglpx.otf",
+    "src": "resources/fonts/GeneralSans-LightItalic.otf"
+  },
+  "resources/fonts/GeneralSans-Medium.otf": {
+    "file": "assets/GeneralSans-Medium-Dnk_K_Tg.otf",
+    "src": "resources/fonts/GeneralSans-Medium.otf"
+  },
+  "resources/fonts/GeneralSans-MediumItalic.otf": {
+    "file": "assets/GeneralSans-MediumItalic-BLXnQNaZ.otf",
+    "src": "resources/fonts/GeneralSans-MediumItalic.otf"
+  },
+  "resources/fonts/GeneralSans-Regular.otf": {
+    "file": "assets/GeneralSans-Regular-Dn3hZj8I.otf",
+    "src": "resources/fonts/GeneralSans-Regular.otf"
+  },
+  "resources/fonts/GeneralSans-Semibold.otf": {
+    "file": "assets/GeneralSans-Semibold-DQ6WvPG1.otf",
+    "src": "resources/fonts/GeneralSans-Semibold.otf"
+  },
+  "resources/fonts/GeneralSans-SemiboldItalic.otf": {
+    "file": "assets/GeneralSans-SemiboldItalic-CmPRaFES.otf",
+    "src": "resources/fonts/GeneralSans-SemiboldItalic.otf"
   },
   "resources/images/bottom-arrow.svg": {
     "file": "assets/bottom-arrow-BE5KB43S.svg",
@@ -61,12 +142,16 @@
     "file": "assets/btn-arrow-BCoyKg90.svg",
     "src": "resources/images/btn-arrow.svg"
   },
+  "resources/images/check.svg": {
+    "file": "assets/check-CxAbcy4h.svg",
+    "src": "resources/images/check.svg"
+  },
   "resources/images/mail.svg": {
-    "file": "assets/mail-Cwopa4lM.svg",
+    "file": "assets/mail-DTO3FXDf.svg",
     "src": "resources/images/mail.svg"
   },
   "resources/images/phone.svg": {
-    "file": "assets/phone-HYNTkel6.svg",
+    "file": "assets/phone-2Yr8v-wi.svg",
     "src": "resources/images/phone.svg"
   },
   "resources/images/pointer.svg": {
@@ -74,7 +159,7 @@
     "src": "resources/images/pointer.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CKrObxIW.js",
+    "file": "assets/app-BnYyDdgM.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -82,7 +167,7 @@
       "resources/js/blocks/reviews.js",
       "resources/js/blocks/tabs.js",
       "resources/js/blocks/slider.js",
-      "resources/js/blocks/values.js",
+      "resources/js/blocks/steps.js",
       "resources/js/blocks/catalogues.js"
     ]
   },
@@ -93,23 +178,32 @@
     "isDynamicEntry": true
   },
   "resources/js/blocks/reviews.js": {
-    "file": "assets/reviews-DlkEinQ3.js",
+    "file": "assets/reviews-CZTnt921.js",
     "name": "reviews",
     "src": "resources/js/blocks/reviews.js",
     "isDynamicEntry": true,
     "imports": [
-      "_swiper-BYn8PY8Z.js",
-      "_pagination-Cdzpe9Bp.js"
+      "_swiper-ebX-QyT2.js",
+      "_pagination-C88VV8fh.js"
     ]
   },
   "resources/js/blocks/slider.js": {
-    "file": "assets/slider-CxPJ5qwy.js",
+    "file": "assets/slider-DJ5nGZie.js",
     "name": "slider",
     "src": "resources/js/blocks/slider.js",
     "isDynamicEntry": true,
     "imports": [
-      "_swiper-BYn8PY8Z.js",
-      "_pagination-Cdzpe9Bp.js"
+      "_swiper-ebX-QyT2.js",
+      "_pagination-C88VV8fh.js"
+    ]
+  },
+  "resources/js/blocks/steps.js": {
+    "file": "assets/steps-CET1CR6o.js",
+    "name": "steps",
+    "src": "resources/js/blocks/steps.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_swiper-ebX-QyT2.js"
     ]
   },
   "resources/js/blocks/tabs.js": {
@@ -118,17 +212,8 @@
     "src": "resources/js/blocks/tabs.js",
     "isDynamicEntry": true
   },
-  "resources/js/blocks/values.js": {
-    "file": "assets/values-DAJVV4Sy.js",
-    "name": "values",
-    "src": "resources/js/blocks/values.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "_swiper-BYn8PY8Z.js"
-    ]
-  },
   "resources/js/editor.js": {
-    "file": "assets/editor-Dqo-zVGR.js",
+    "file": "assets/editor-BvRk9kiK.js",
     "name": "editor",
     "src": "resources/js/editor.js",
     "isEntry": true

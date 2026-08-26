@@ -21,8 +21,9 @@ add_action('pre_get_posts', function ($q) {
     return;
   }
   if ($q->is_search()) {
-    if (!empty($_GET['post_type']) && $_GET['post_type'] === 'produkty') {
-      $q->set('post_type', 'produkty');
+    $allowed_post_types = ['produkty', 'post'];
+    if (!empty($_GET['post_type']) && in_array($_GET['post_type'], $allowed_post_types, true)) {
+      $q->set('post_type', $_GET['post_type']);
     }
   }
 });
@@ -48,4 +49,24 @@ add_filter('woocommerce_coming_soon_template', function ($template) {
     }
     
     return $template;
+});
+
+
+/*--- CHANGE EDIT SECTION ---*/
+
+
+add_filter('gettext', function ($translated, $text, $domain) {
+    if (
+        is_admin() &&
+        $text === 'Open expanded editor'
+    ) {
+        return 'Edytuj sekcję';
+    }
+
+    return $translated;
+}, 10, 3);
+
+
+add_filter('acf/blocks/default_expanded_editor_button_text', function () {
+    return 'Edytuj sekcję';
 });

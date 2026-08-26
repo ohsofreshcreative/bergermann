@@ -4,6 +4,19 @@ namespace App\Support;
 
 class SectionClasses
 {
+	public static function backgroundChoices(): array
+	{
+		return [
+			'none' => 'Brak (domyślne)',
+			'section-white' => 'Białe',
+			'section-light' => 'Jasne',
+			'section-primary' => 'Niebieskie',
+			'section-secondary' => 'Różowe',
+			'section-gradient' => 'Gradient',
+			'section-dark' => 'Ciemne',
+		];
+	}
+
 	/**
 	 * Buduje string klas na podstawie mapy pól boolean -> klasy oraz pola tła.
 	 *

@@ -9,25 +9,27 @@
 	$background => filled($background) && $background !== 'none',
 	])>
 
-	@if ($bgshape)
-		<img class="__bg-shape absolute inset-y-0 right-0 w-auto pointer-events-none" src="{{ get_template_directory_uri() }}/resources/images/bg-shape.svg" alt="">
-	@endif
-
 	<div class="__wrapper c-main relative">
 
 		<div class="__col grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-20">
-			@if (!empty($g_content['image']))
-			<figure data-gsap-element="img" class="__img h-full order1">
-				<picture>
-					<img class="radius-img h-[504px] max-h-[504px] w-full object-cover" src="{{ $g_content['image']['url'] }}" alt="{{ $g_content['image']['alt'] ?? '' }}">
-				</picture>
-			</figure>
-			@endif
+			<div class="__img order1 relative" data-gsap-element="img">
+				@if (!empty($g_content['image']))
+				<x-picture
+					data-gsap-element="img"
+					:image="$g_content['image']"
+					:figureClass="'__img h-full' . ($stroke ? ' __img--stroke' : '')"
+					class="w-full object-cover max-h-[600px]" />
+				@if ($bgshape)
+				<span class="__shape" aria-hidden="true"></span>
+				@endif
+				@endif
+			</div>
 
 			<div class="__content order2">
-				<h2 data-gsap-element="header" class="text-h4 m-header text-primary">{{ $g_content['header'] }}</h2>
+				<p data-gsap-element="title" class="__title">{{ $g_content['title'] }}</p>
+				<h2 data-gsap-element="header" class="text-h4">{{ $g_content['header'] }}</h2>
 
-				<div data-gsap-element="txt" class="__txt">
+				<div data-gsap-element="txt" class="m-header __txt">
 					{!! $g_content['text'] !!}
 				</div>
 
@@ -59,5 +61,4 @@
 
 		</div>
 	</div>
-
 </section>

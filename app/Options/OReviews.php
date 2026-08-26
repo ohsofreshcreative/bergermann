@@ -20,6 +20,12 @@ class Oreviews extends Options
 
 		$oreviews
 			->addText('header', ['label' => 'Nagłówek'])
+			->addWysiwyg('info', [
+				'label' => 'Informacje dodatkowe',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => true,
+			])
 			->addRepeater('r_reviews', [
 				'label'        => 'Opinie',
 				'layout'       => 'table',
@@ -27,8 +33,15 @@ class Oreviews extends Options
 				'max'          => 50,
 				'button_label' => 'Dodaj opinię',
 			])
-			->addText('header', [
-				'label' => 'Nagłówek',
+			->addText('name', [
+				'label' => 'Imię i nazwisko',
+			])
+			->addNumber('rating', [
+				'label' => 'Ocena w gwiazdkach',
+				'min' => 1,
+				'max' => 5,
+				'step' => 1,
+				'default_value' => 5,
 			])
 			->addTextarea('txt', [
 				'label'     => 'Treść opinii',
@@ -39,12 +52,6 @@ class Oreviews extends Options
 				'label' => 'Obraz',
 				'return_format' => 'array',
 				'preview_size' => 'thumbnail',
-			])
-			->addText('name', [
-				'label' => 'Imię i nazwisko',
-			])
-			->addText('position', [
-				'label' => 'Stanowisko',
 			])
 			->endRepeater();
 

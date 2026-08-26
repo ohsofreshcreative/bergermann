@@ -27,17 +27,21 @@ class Slider extends Block
 
         $slider
             ->setLocation('block', '==', 'acf/slider')
-            ->addText('block-title', [
-                'label' => 'Tytuł',
-                'required' => 0,
-            ])
-            ->addAccordion('accordion1', [
-                'label' => 'Slider - Oferta',
-                'open' => false,
-                'multi_expand' => true,
-            ])
-            ->addTab('Treści', ['placement' => 'top'])
-            ->addText('slider_title', ['label' => 'Tytuł sekcji'])
+			/*--- GROUP ---*/
+			->addTab('Elementy', ['placement' => 'top'])
+			->addGroup('g_slider', ['label' => ''])
+			->addImage('image', [
+				'label' => 'Obraz',
+				'return_format' => 'array',
+				'preview_size' => 'thumbnail',
+			])
+            ->addText('header', ['label' => 'Tytuł sekcji'])
+			->addWysiwyg('text', [
+				'label' => 'Treść',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => true,
+			])
             ->addRelationship('slider_offers', [
                 'label'         => 'Wpisy oferty (kolejność ma znaczenie)',
                 'post_type'     => ['offer'],
@@ -45,6 +49,9 @@ class Slider extends Block
                 'return_format' => 'object',
                 'instructions'  => 'Wybierz i ułóż wpisy oferty w dowolnej kolejności. Jeśli pole jest puste, wyświetlą się wszystkie automatycznie.',
             ])
+			->endGroup()
+
+			/*--- USTAWIENIA BLOKU ---*/
 
             ->addTab('Ustawienia bloku', ['placement' => 'top'])
             ->addText('section_id', ['label' => 'ID'])
@@ -61,21 +68,13 @@ class Slider extends Block
 				'ui_on_text' => 'Tak',
 				'ui_off_text' => 'Nie',
 			])
-            ->addSelect('background', [
-                'label' => 'Kolor tła',
-                'choices' => [
-                    'none'              => 'Brak (domyślne)',
-                    'section-white'     => 'Białe',
-                    'section-light'     => 'Jasne',
-                    'section-gray'      => 'Szare',
-                    'section-brand'     => 'Marki',
-                    'section-gradient'  => 'Gradient',
-                    'section-dark'      => 'Ciemne',
-                ],
-                'default_value' => 'none',
-                'ui' => 0,
-                'allow_null' => 0,
-            ]);
+			->addSelect('background', [
+				'label' => 'Kolor tła',
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
+				'default_value' => 'none',
+				'ui' => 0,
+				'allow_null' => 0,
+			]);
 
         return $slider;
     }
@@ -114,7 +113,7 @@ class Slider extends Block
 
         $fields = [
             'slides'       => $slides,
-            'slider_title' => get_field('slider_title'),
+			'g_slider' => get_field('g_slider'),
             'section_id'   => get_field('section_id'),
             'section_class' => get_field('section_class'),
             'nomt'         => (bool) get_field('nomt'),

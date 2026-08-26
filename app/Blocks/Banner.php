@@ -8,12 +8,12 @@ use App\Support\SectionClasses;
 
 class Banner extends Block
 {
-	public $name = 'Hero - Podstrona';
-	public $description = 'banner - hero dla podstron';
+	public $name = 'Banner';
+	public $description = 'banner - Sekcja hero na podstronach';
 	public $slug = 'banner';
 	public $category = 'formatting';
 	public $icon = 'align-full-width';
-	public $keywords = ['tresc', 'zdjecie', 'podstrona', 'hero'];
+	public $keywords = ['banner', 'tresc', 'zdjecie', 'podstrona'];
 	public $mode = 'edit';
 	public $supports = [
 		'align' => false,
@@ -26,29 +26,20 @@ class Banner extends Block
 		$banner = new FieldsBuilder('banner');
 
 		$banner
-			->setLocation('block', '==', 'acf/banner') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Hero - Podstrona',
-				'open' => false,
-				'multi_expand' => true,
-			])
-			/*--- TAB #1 ---*/
-			->addTab('Treść', ['placement' => 'top'])
-			->addGroup('g_banner', ['label' => 'banner'])
+			->setLocation('block', '==', 'acf/banner')
+			/*--- GROUP ---*/
+			->addTab('Elementy', ['placement' => 'top'])
+			->addGroup('g_banner', ['label' => ''])
 			->addImage('image', [
 				'label' => 'Obraz',
 				'return_format' => 'array',
 				'preview_size' => 'thumbnail',
 			])
-			->addText('title', ['label' => 'Tytuł'])
+			->addText('header', ['label' => 'Nagłówek'])
 			->addWysiwyg('text', [
 				'label' => 'Treść',
-				'tabs' => 'all', // 'visual', 'text', 'all'
-				'toolbar' => 'full', // 'basic', 'full'
+				'tabs' => 'all',
+				'toolbar' => 'full',
 				'media_upload' => true,
 			])
 			->addLink('button1', [
@@ -58,12 +49,6 @@ class Banner extends Block
 			->addLink('button2', [
 				'label' => 'Przycisk #2',
 				'return_format' => 'array',
-			])
-			->addTrueFalse('shape', [
-				'label' => 'Kształt pod sekcją',
-				'ui' => 1,
-				'ui_on_text' => 'Tak',
-				'ui_off_text' => 'Nie',
 			])
 			->endGroup()
 
@@ -75,12 +60,6 @@ class Banner extends Block
 			])
 			->addText('section_class', [
 				'label' => 'Dodatkowe klasy CSS',
-			])
-			->addTrueFalse('nolist', [
-				'label' => 'Brak punktatorów',
-				'ui' => 1,
-				'ui_on_text' => 'Tak',
-				'ui_off_text' => 'Nie',
 			])
 			->addTrueFalse('flip', [
 				'label' => 'Odwrotna kolejność',
@@ -108,17 +87,9 @@ class Banner extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, // Ulepszony interfejs
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -138,7 +109,7 @@ class Banner extends Block
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

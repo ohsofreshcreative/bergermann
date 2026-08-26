@@ -27,24 +27,14 @@ class Proces extends Block
 
 		$proces
 			->setLocation('block', '==', 'acf/proces') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Proces - Kafelki na dole',
-				'open' => false,
-				'multi_expand' => true,
-			])
 			/*--- FIELDS ---*/
-			->addTab('Treść', ['placement' => 'top'])
+			->addTab('Elementy', ['placement' => 'top'])
 			->addGroup('g_proces', ['label' => ''])
 			->addText('header', ['label' => 'Nagłówek'])
-			->addWysiwyg('txt', [
-				'label' => 'Opis',
-				'tabs' => 'all', // 'visual', 'text', 'all'
-				'toolbar' => 'full', // 'basic', 'full'
-				'media_upload' => true,
+			->addImage('image', [
+				'label' => 'Obraz',
+				'return_format' => 'array',
+				'preview_size' => 'medium',
 			])
 			->endGroup()
 
@@ -58,11 +48,6 @@ class Proces extends Block
 			])
 			->addText('number', [
 				'label' => 'Krok',
-			])
-			->addImage('image', [
-				'label' => 'Obraz',
-				'return_format' => 'array', // lub 'url', lub 'id'
-				'preview_size' => 'medium',
 			])
 			->addText('title', [
 				'label' => 'Nagłówek',
@@ -109,15 +94,7 @@ class Proces extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
 				'ui' => 0,
 				'allow_null' => 0,
@@ -141,7 +118,7 @@ class Proces extends Block
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

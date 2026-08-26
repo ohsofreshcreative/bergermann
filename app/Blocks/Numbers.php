@@ -27,15 +27,6 @@ class Numbers extends Block
 
 		$numbers
 			->setLocation('block', '==', 'acf/numbers') // ważne!
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Liczby',
-				'open' => false,
-				'multi_expand' => true,
-			])
 
 			/*--- TAB #1 ---*/
 			->addTab('Kafelki', ['placement' => 'top'])
@@ -82,17 +73,9 @@ class Numbers extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
-				'ui' => 0, 
+				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
@@ -111,7 +94,7 @@ class Numbers extends Block
 			'wide' => (bool) get_field('wide'),
 			'nomt' => (bool) get_field('nomt'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

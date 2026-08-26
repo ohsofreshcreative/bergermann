@@ -31,15 +31,6 @@ class Contact extends Block
 		$contact
 			->setLocation('block', '==', 'acf/contact') // ważne!
 			/*--- FIELDS ---*/
-			->addText('block-title', [
-				'label' => 'Tytuł',
-				'required' => 0,
-			])
-			->addAccordion('accordion1', [
-				'label' => 'Kontakt',
-				'open' => false,
-				'multi_expand' => true,
-			])
 			/*--- TAB #1 ---*/
 			->addTab('Dane', ['placement' => 'top'])
 			->addGroup('g_contact_1', ['label' => ''])
@@ -49,16 +40,23 @@ class Contact extends Block
 				'preview_size' => 'thumbnail',
 			])
 			->addText('header', ['label' => 'Tytuł'])
+			->addWysiwyg('text', [
+				'label' => 'Treść',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => false,
+			])
 			->addText('phone', [
 				'label' => 'Numer telefonu',
 			])
 			->addText('mail', [
 				'label' => 'Adres e-mail',
 			])
-			->addTextarea('address', [
-				'label' => 'Adres',
-				'rows' => 3,
-				'new_lines' => 'br',
+			->addWysiwyg('hours', [
+				'label' => 'Godziny otwarcia',
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => false,
 			])
 			->endGroup()
 			/*--- TAB #2 ---*/
@@ -106,15 +104,7 @@ class Contact extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => [
-					'none' => 'Brak (domyślne)',
-					'section-white' => 'Białe',
-					'section-light' => 'Jasne',
-					'section-gray' => 'Szare',
-					'section-brand' => 'Marki',
-					'section-gradient' => 'Gradient',
-					'section-dark' => 'Ciemne',
-				],
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
 				'ui' => 0,
 				'allow_null' => 0,
@@ -138,7 +128,7 @@ class Contact extends Block
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
 
-			'background' => get_field('background') ?: 'none',
+			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 
 		$fields['sectionClass'] = SectionClasses::fromMap($fields, [

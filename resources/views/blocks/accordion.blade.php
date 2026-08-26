@@ -11,14 +11,13 @@
 
 	<div class="c-main">
 		<div class="__wrapper">
-			<div class="grid grid-cols-1 lg:grid-cols-2 items-end gap-8 lg:gap-20 my-10">
-				<div class="__col">
-					<h4 data-gsap-element="header" class="m-header text-primary">{{ $g_accordion['title'] }}</h4>
-					<div data-gsap-element="txt" class="">{!! $g_accordion['text'] !!}</div>
+			<h3 data-gsap-element="header" class="m-header text-primary">{{ $g_accordion['title'] }}</h3>
+			<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 mt-10">
+				<div class="__col h-full">
 					@if (!empty($g_accordion['image']))
-					<figure data-gsap-element="img" class="__img order1 h-full mt-8">
-						<picture>
-							<img class="object-cover img-md w-full radius-img" src="{{ $g_accordion['image']['url'] }}" alt="{{ $g_accordion['image']['alt'] ?? '' }}">
+					<figure data-gsap-element="img" class="__img order1 h-full">
+						<picture class="block h-full">
+							<img class="object-cover h-full w-full max-h-[504px]" src="{{ $g_accordion['image']['url'] }}" alt="{{ $g_accordion['image']['alt'] ?? '' }}">
 						</picture>
 					</figure>
 					@endif
@@ -31,13 +30,16 @@
 				<div class="__content order2">
 					<div data-gsap-element="accordion" class="accordion-wrapper grid">
 						@foreach ($r_accordion as $item)
-						<div class="accordion rounded-2xl bg-white border border-secondary h-max">
+						<div class="accordion bg-white border border-secondary h-max">
 							<input class="acc-check" type="radio" name="accordion-radio" id="check{{ $loop->index }}" {{ $loop->first ? 'checked' : '' }}>
-							<label class="accordion-label flex items-center justify-between !text-primary text-h7 gap-4" for="check{{ $loop->index }}">
+							<label class="accordion-label flex items-center justify-between !text-body text-h7 gap-4" for="check{{ $loop->index }}">
 								{{ $item['title'] }}
-								<x-icon.arrow-up class="__arrow text-secondary w-3 h-4" />
+								<span class="accordion-toggle" aria-hidden="true">
+									<span class="accordion-toggle__line"></span>
+									<span class="accordion-toggle__line"></span>
+								</span>
 							</label>
-							<div class="accordion-content">
+							<div class="accordion-content [&_p]:text-body!">
 								{!! $item['text'] !!}
 							</div>
 						</div>
