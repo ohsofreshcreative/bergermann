@@ -2,18 +2,18 @@
 
 namespace App\Blocks;
 
-use App\Support\SectionClasses;
 use Log1x\AcfComposer\Block;
 use StoutLogic\AcfBuilder\FieldsBuilder;
+use App\Support\SectionClasses;
 
-class Switcher extends Block
+class Cats extends Block
 {
-	public $name = 'Switcher';
-	public $description = 'switcher';
-	public $slug = 'switcher';
+	public $name = 'Dla kogo';
+	public $description = 'cats';
+	public $slug = 'cats';
 	public $category = 'formatting';
-	public $icon = 'image-flip-horizontal';
-	public $keywords = ['switcher', 'przełącznik', 'zakładki'];
+	public $icon = 'admin-links';
+	public $keywords = ['cats', 'pomoc', 'kafelki'];
 	public $mode = 'edit';
 	public $supports = [
 		'align' => false,
@@ -25,62 +25,26 @@ class Switcher extends Block
 
 	public function fields()
 	{
-		$switcher = new FieldsBuilder('switcher');
+		$cats = new FieldsBuilder('cats');
 
-		$switcher
-			->setLocation('block', '==', 'acf/switcher')
-			/*--- TAB #1 ---*/
+		$cats
+			->setLocation('block', '==', 'acf/cats')
 			->addTab('Elementy', ['placement' => 'top'])
-			->addGroup('g_switcher', ['label' => ''])
+			->addGroup('g_cats', ['label' => ''])
 			->addText('header', ['label' => 'Nagłówek'])
-			->addWysiwyg('text', [
-				'label' => 'Treść',
-				'tabs' => 'all',
-				'toolbar' => 'full',
-				'media_upload' => true,
+			->addTaxonomy('offer_category', [
+				'label' => 'Kategoria ofert',
+				'taxonomy' => 'offer_category',
+				'field_type' => 'select',
+				'allow_null' => 0,
+				'add_term' => 0,
+				'save_terms' => 0,
+				'load_terms' => 0,
+				'return_format' => 'id',
+				'multiple' => 0,
 			])
+			->addMessage('Informacja', 'Blok automatycznie wyświetla oferty (CPT „Oferta”) przypisane do wybranej kategorii ofert.')
 			->endGroup()
-
-			/*--- TAB #2 ---*/
-			->addTab('Zakładki', ['placement' => 'top'])
-			->addRepeater('r_switcher', [
-				'label' => 'Zakładki',
-				'layout' => 'block',
-				'min' => 1,
-				'button_label' => 'Dodaj zakładkę',
-			])
-			->addText('title', [
-				'label' => 'Nazwa zakładki',
-				'required' => 1,
-			])
-			->addRepeater('items', [
-				'label' => 'Elementy',
-				'layout' => 'row',
-				'min' => 1,
-				'button_label' => 'Dodaj element',
-			])
-			->addImage('image', [
-				'label' => 'Obraz',
-				'return_format' => 'array',
-				'preview_size' => 'thumbnail',
-			])
-			->addText('header', [
-				'label' => 'Nagłówek',
-			])
-			->addWysiwyg('text', [
-				'label' => 'Treść',
-				'tabs' => 'all',
-				'toolbar' => 'full',
-				'media_upload' => true,
-			])
-			->addLink('button', [
-				'label' => 'Przycisk',
-				'return_format' => 'array',
-			])
-			->endRepeater()
-			->endRepeater()
-
-			/*--- USTAWIENIA BLOKU ---*/
 			->addTab('Ustawienia bloku', ['placement' => 'top'])
 			->addText('section_id', [
 				'label' => 'ID',
@@ -114,29 +78,58 @@ class Switcher extends Block
 			])
 			->addSelect('background', [
 				'label' => 'Kolor tła',
-				'choices' => SectionClasses::backgroundChoices(),
+				'choices' => \App\Support\SectionClasses::backgroundChoices(),
 				'default_value' => 'none',
 				'ui' => 0,
 				'allow_null' => 0,
 			]);
 
-		return $switcher;
+		return $cats;
 	}
 
 	public function with(): array
 	{
-		$fields = [
-			'g_switcher' => get_field('g_switcher'),
-			'r_switcher' => get_field('r_switcher'),
+		$gcats = get_field('g_cats');
+		$category = $gcats['offer_category'] ?? null;
 
+		$cat_items = [];
+		if (!empty($category)) {
+			$offers_query = new \WP_Query([
+				'post_type'      => 'offer',
+				'posts_per_page' => -1,
+				'orderby'        => 'menu_order',
+				'order'          => 'ASC',
+				'post_status'    => 'publish',
+				'tax_query'      => [
+					[
+						'taxonomy' => 'offer_category',
+						'field'    => 'term_id',
+						'terms'    => $category,
+					],
+				],
+			]);
+
+			foreach ($offers_query->posts as $post) {
+				$icon = get_field('offer_icon', $post->ID);
+				$cat_items[] = [
+					'title'    => $post->post_title,
+					'url'      => get_permalink($post->ID),
+					'icon_url' => $icon['url'] ?? null,
+					'icon_alt' => $icon['alt'] ?? '',
+				];
+			}
+			wp_reset_postdata();
+		}
+
+		$fields = [
+			'g_cats' => $gcats,
+			'cat_items' => $cat_items,
 			'section_id' => get_field('section_id'),
 			'section_class' => get_field('section_class'),
-
 			'flip' => (bool) get_field('flip'),
 			'wide' => (bool) get_field('wide'),
 			'nomt' => (bool) get_field('nomt'),
 			'gap' => (bool) get_field('gap'),
-
 			'background' => get_field('background') ?: get_field('default_block_background', 'option') ?: 'none',
 		];
 

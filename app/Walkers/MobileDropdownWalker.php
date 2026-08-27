@@ -16,7 +16,6 @@ class MobileDropdownWalker extends Walker_Nav_Menu
         // Dodajemy link do strony nadrzędnej jako pierwszy element podmenu
         if ($depth === 0 && isset($this->current_item_url)) {
             $output .= "\n<ul x-show=\"open\" x-transition class=\"pl-4 mt-2 space-y-2\" style=\"display: none;\">\n";
-            $output .= '<li><a href="' . esc_attr($this->current_item_url) . '" class="block py-1 font-semibold">Zobacz wszystko</a></li>';
             unset($this->current_item_url); // Czyścimy właściwość po użyciu
         } else {
             // Submenu jest domyślnie ukryte i pojawia się z animacją.
@@ -42,7 +41,7 @@ class MobileDropdownWalker extends Walker_Nav_Menu
             
             // Używamy klas `block py-1` dla spójności, dodając `relative` do pozycjonowania strzałki
             $output .= '<button @click="open = !open" class="block w-full py-1 text-left relative">';
-            $output .= '<span class="!text-white !text-xl hover:!text-primary-400">' . esc_html($item->title) . '</span>';
+            $output .= '<span class=" !text-xl hover:!text-primary-400">' . esc_html($item->title) . '</span>';
             
             // Pozycjonujemy strzałkę absolutnie wewnątrz przycisku
             $output .= '<svg class="w-5 h-5 text-primary-light transition-transform duration-200 shrink-0 absolute top-1/2 right-0 -translate-y-1/2" :class="{ \'rotate-180\': open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>';

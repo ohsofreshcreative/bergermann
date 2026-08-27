@@ -11,9 +11,9 @@
 
 	<div class="c-main">
 		@if (!empty($g_slider['header']) || !empty($g_slider['text']))
-		<div class="__wrapper relative z-20">
+		<div class="__wrapper relative w-full md:w-2/3 z-20">
 			@if (!empty($g_slider['header']))
-			<h2 data-gsap-element="header" class="text-primary">{{ strip_tags($g_slider['header']) }}</h2>
+			<h2 data-gsap-element="header" class="text-primary text-h3">{{ strip_tags($g_slider['header']) }}</h2>
 			@endif
 
 			@if (!empty($g_slider['text']))
@@ -23,13 +23,13 @@
 			@endif
 		</div>
 		@endif
-		<div class="swiper slider-standard relative !overflow-visible z-20 mt-6">
+		<div class="swiper slider-standard relative !overflow-visible z-20 mt-10">
 			<div class="swiper-wrapper">
 				@foreach ($slides as $slide)
 				<div class="swiper-slide mr-8">
-					<div class="bg-white  h-full px-8 py-12">
+					<div class="bg-white h-full px-8 py-12 flex flex-col">
 						@if (!empty($slide['image_url']))
-						<figure class="relative m-0 h-full overflow-hidden">
+						<figure class="relative m-0 overflow-hidden flex-1">
 							<img
 								src="{{ $slide['image_url'] }}"
 								alt="{{ $slide['image_alt'] }}"
@@ -55,7 +55,7 @@
 				@endforeach
 			</div>
 
-			<div data-gsap-element="arrows" class="w-full z-10 flex flex-row items-center pointer-events-none gap-4 mt-16">
+			<div data-gsap-element="arrows" class="w-full z-10 flex flex-row items-center pointer-events-none gap-4 mt-10">
 				<div class="__prev bg-primary h-14 w-14 flex items-center justify-center pointer-events-auto cursor-pointer transition-all duration-400 shrink-0">
 					<svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
 						<path d="M0.270429 5.31498C0.270706 5.31469 0.270937 5.31435 0.27126 5.31406L5.08882 0.281803C5.44973 -0.0951806 6.03348 -0.0937777 6.39273 0.285093C6.75194 0.663916 6.75055 1.27664 6.38964 1.65367L3.15514 5.03226L12.078 5.03226C12.5872 5.03226 13 5.46552 13 6C13 6.53448 12.5872 6.96774 12.078 6.96774L3.15518 6.96774L6.3896 10.3463C6.75051 10.7234 6.75189 11.3361 6.39269 11.7149C6.03344 12.0938 5.44963 12.0951 5.08877 11.7182L0.271213 6.68594C0.270936 6.68565 0.270706 6.68531 0.270383 6.68502C-0.0907122 6.30673 -0.08956 5.69202 0.270429 5.31498Z" fill="#FFF" />

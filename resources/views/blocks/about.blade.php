@@ -61,7 +61,7 @@
 				@foreach ($r_about as $item)
 				<div class="accordion bg-white border border-secondary h-max">
 					<input class="acc-check" type="radio" name="accordion-radio" id="check{{ $loop->index }}" {{ $loop->first ? 'checked' : '' }}>
-					<label class="accordion-label flex items-center justify-between text-h7 gap-4" for="check{{ $loop->index }}">
+					<label class="accordion-label flex items-center justify-between text-base font-semibold gap-4" for="check{{ $loop->index }}">
 						{{ $item['title'] }}
 						<span class="accordion-toggle" aria-hidden="true">
 							<span class="accordion-toggle__line"></span>

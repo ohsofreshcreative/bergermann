@@ -47,7 +47,7 @@ $stepNavColor = $background === 'section-secondary' ? 'bg-secondary-900' : 'bg-p
 
 						<div class="__content mt-6">
 							@if (!empty($item['title']))
-							<p class="__title text-primary-300 text-h6 mb-3">{{ $item['title'] }}</p>
+							<p class="__title text-primary-300 text-h6 mt-30 mb-3">{{ $item['title'] }}</p>
 							@endif
 							@if (!empty($item['text']))
 							<div class="__txt text-white">{!! $item['text'] !!}</div>

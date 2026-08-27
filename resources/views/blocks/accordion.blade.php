@@ -11,7 +11,14 @@
 
 	<div class="c-main">
 		<div class="__wrapper">
-			<h3 data-gsap-element="header" class="m-header text-primary">{{ $g_accordion['title'] }}</h3>
+			<div class="__top w-full md:w-1/2">
+				<h3 data-gsap-element="header" class="m-header text-primary">{{ $g_accordion['title'] }}</h3>
+				@if (!empty($g_accordion['text']))
+				<div data-gsap-element="txt" class="__txt text-body m-header">
+					{!! $g_accordion['text'] !!}
+				</div>
+				@endif
+			</div>
 			<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 mt-10">
 				<div class="__col h-full">
 					@if (!empty($g_accordion['image']))
@@ -21,18 +28,15 @@
 						</picture>
 					</figure>
 					@endif
-
-					@if (!empty($g_accordion['button']))
-					<a class="main-btn m-btn" href="{{ $g_accordion['button']['url'] }}">{{ $g_accordion['button']['title'] }}</a>
-					@endif
 				</div>
 
 				<div class="__content order2">
+
 					<div data-gsap-element="accordion" class="accordion-wrapper grid">
 						@foreach ($r_accordion as $item)
 						<div class="accordion bg-white border border-secondary h-max">
 							<input class="acc-check" type="radio" name="accordion-radio" id="check{{ $loop->index }}" {{ $loop->first ? 'checked' : '' }}>
-							<label class="accordion-label flex items-center justify-between !text-body text-h7 gap-4" for="check{{ $loop->index }}">
+							<label class="accordion-label flex items-center justify-between text-base font-semibold gap-4" for="check{{ $loop->index }}">
 								{{ $item['title'] }}
 								<span class="accordion-toggle" aria-hidden="true">
 									<span class="accordion-toggle__line"></span>

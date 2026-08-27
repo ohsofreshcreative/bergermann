@@ -31,7 +31,7 @@
 				@if (!empty($item['image']['url']))
 				<img class="mb-6" src="{{ $item['image']['url'] }}" alt="{{ $item['image']['alt'] ?? '' }}" />
 				@else
-				<div class="text-h6 !text-primary mb-2">
+				<div class="text-h5 !text-primary mb-2">
 					{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}
 				</div>
 				@endif
@@ -41,7 +41,7 @@
 				@endif
 
 				@if (!empty($item['text']))
-				<p>{{ $item['text'] }}</p>
+				<p class="text-sm mt-2">{{ $item['text'] }}</p>
 				@endif
 			</div>
 			@endforeach

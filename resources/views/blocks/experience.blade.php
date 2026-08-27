@@ -14,7 +14,7 @@
 		<div class="__img order1 relative" data-gsap-element="img">
 			<x-picture
 				:image="$g_experience['image']"
-				figureClass=""
+				figureClass="h-[400px] sm:h-[600px] md:h-full overflow-hidden"
 				class="w-full h-full object-cover" />
 			<span class="__shape" aria-hidden="true"></span>
 		</div>
@@ -22,7 +22,7 @@
 
 		<div class="__content order2">
 			@if (!empty($g_experience['header']))
-			<h2 data-gsap-element="header" class="">{{ $g_experience['header'] }}</h2>
+			<h3 data-gsap-element="header" class="">{{ $g_experience['header'] }}</h3>
 			@endif
 
 			@if (!empty($g_experience['text']))
@@ -34,9 +34,9 @@
 			@if (!empty($r_experience) || !empty($g_experience['cta_header']) || !empty($g_experience['button']))
 			<div class="__cards grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 lg:mt-10">
 				@foreach (($r_experience ?? []) as $item)
-				<div data-gsap-element="card" class="__card flex flex-col justify-center">
+				<div data-gsap-element="card" class="__card flex flex-col justify-center p-4 md:p-10">
 					@if (!empty($item['number']))
-					<p class="__number text-h2">{{ $item['number'] }}</p>
+					<p class="__number text-h4">{{ $item['number'] }}</p>
 					@endif
 					@if (!empty($item['text']))
 					<div class="__card-text">{!! $item['text'] !!}</div>
@@ -45,7 +45,7 @@
 				@endforeach
 
 				@if (!empty($g_experience['cta_header']) || !empty($g_experience['button']))
-				<div data-gsap-element="card" class="__card __card--cta flex flex-col justify-center">
+				<div data-gsap-element="card" class="__card __card--cta flex flex-col justify-center p-4 md:p-10">
 					@if (!empty($g_experience['cta_header']))
 					<p class="__cta-title text-secondary">{{ $g_experience['cta_header'] }}</p>
 					@endif

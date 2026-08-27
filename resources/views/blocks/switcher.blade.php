@@ -12,9 +12,16 @@
 	])>
 
 	<div class="__wrapper c-main flex flex-col gap-12">
-		@if (!empty($g_switcher['header']))
-		<h2 data-gsap-element="header">{{ $g_switcher['header'] }}</h2>
-		@endif
+		<div class="__top w-full md:w-2/3">
+			@if (!empty($g_switcher['header']))
+			<h2 data-gsap-element="header">{{ $g_switcher['header'] }}</h2>
+			@endif
+			@if (!empty($g_switcher['text']))
+			<div data-gsap-element="txt" class="m-header __txt">
+				{!! $g_switcher['text'] !!}
+			</div>
+			@endif
+		</div>
 
 		@if (!empty($r_switcher))
 		<div x-data="{ activeTab: 0 }" class="__switcher flex flex-col gap-10">
@@ -59,21 +66,21 @@
 							data-gsap-element="img" />
 						@endif
 
-						@if (!empty($item['header']))
-						<p data-gsap-element="header" class="text-h6">{{ $item['header'] }}</p>
-						@endif
-
-						@if (!empty($item['text']))
-						<div data-gsap-element="txt" class="__txt">
-							{!! $item['text'] !!}
+						<div class="__content">
+							@if (!empty($item['header']))
+							<p data-gsap-element="header" class="text-h6">{{ $item['header'] }}</p>
+							@endif
+							@if (!empty($item['text']))
+							<div data-gsap-element="txt" class="__txt mt-1">
+								{!! $item['text'] !!}
+							</div>
+							@endif
+							@if (!empty($item['button']['url']))
+							<x-button :href="$item['button']['url']" variant="primary" data-gsap-element="btn" class="mt-5">
+								{{ $item['button']['title'] }}
+							</x-button>
+							@endif
 						</div>
-						@endif
-
-						@if (!empty($item['button']['url']))
-						<x-button :href="$item['button']['url']" variant="primary" data-gsap-element="btn">
-							{{ $item['button']['title'] }}
-						</x-button>
-						@endif
 					</div>
 					@endforeach
 				</div>

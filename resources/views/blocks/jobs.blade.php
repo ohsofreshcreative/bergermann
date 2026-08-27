@@ -17,7 +17,7 @@
 		@if (!empty($job_items))
 		<div class="flex flex-col gap-6">
 			@foreach ($job_items as $item)
-			<div data-gsap-element="item" class="__item flex flex-col items-start justify-between gap-6 border border-primary-light bg-white p-8 lg:flex-row lg:items-center">
+			<a href="{{ $item['url'] }}" data-gsap-element="item" class="__item flex flex-col items-start justify-between gap-6 border border-primary-light bg-white p-8 lg:flex-row lg:items-center">
 				<div>
 					<p data-gsap-element="header" class="text-h7">{{ $item['title'] }}</p>
 					@if (!empty($item['location']) || !empty($item['contract']))
@@ -27,8 +27,8 @@
 					@endif
 				</div>
 
-				<x-button :href="$item['url']" variant="underline" data-gsap-element="btn">Sprawdź ofertę</x-button>
-			</div>
+				<x-button tag="button" variant="underline" data-gsap-element="btn">Sprawdź ofertę</x-button>
+			</a>
 			@endforeach
 		</div>
 		@endif

@@ -199,6 +199,7 @@
 @import '../css/blocks/proces.scss';
 @import '../css/blocks/clients.scss';
 @import '../css/blocks/locations.scss';
+@import '../css/blocks/cats.scss';
 
 /*-- NOT USED ---*/
 @import '../css/blocks/about.scss';

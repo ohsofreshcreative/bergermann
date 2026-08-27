@@ -1,2 +1,10 @@
 .b-jobs {
+	.__item:hover .btn-underline {
+		color: var(--color-secondary-hover);
+	}
+
+	.__item:hover .btn-underline::after {
+		transition: all 0.2s ease-out;
+		margin-left: 12px;
+	}
 }
