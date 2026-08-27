@@ -7,11 +7,16 @@
     width: 100%;
 }
 
+.slider-standard .swiper-wrapper {
+    align-items: stretch;
+}
+
 .slider-standard .swiper-slide {
     background-position: center;
     background-size: cover;
     overflow: hidden;
     width: 100%;
+    height: auto;
 
     @media (min-width: 640px)  { width: 70%; }
     @media (min-width: 1024px) { width: 55%; }

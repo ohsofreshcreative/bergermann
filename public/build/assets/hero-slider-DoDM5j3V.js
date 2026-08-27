@@ -1,0 +1,1 @@
+import{t as e}from"./swiper-ebX-QyT2.js";import{t}from"./navigation-DIc4ZJAB.js";(()=>{let n=document.querySelectorAll(`.slider-hero`);n.length&&n.forEach(n=>{let r=n.querySelectorAll(`.swiper-slide`).length;new e(n,{modules:[t],loop:r>1,slidesPerView:1,navigation:{nextEl:n.querySelector(`.__next`),prevEl:n.querySelector(`.__prev`)}})})})();

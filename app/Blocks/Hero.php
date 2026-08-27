@@ -32,6 +32,12 @@ public $supports = [
 			/*--- GROUP ---*/
 			->addTab('Elementy', ['placement' => 'top'])
 			->addGroup('g_hero', ['label' => ''])
+			->addRepeater('r_hero', [
+				'label' => 'Slajdy',
+				'layout' => 'block',
+				'min' => 1,
+				'button_label' => 'Dodaj slajd',
+			])
 			->addImage('image', [
 				'label' => 'Obraz',
 				'return_format' => 'array',
@@ -52,6 +58,7 @@ public $supports = [
 				'label' => 'Przycisk #2',
 				'return_format' => 'array',
 			])
+			->endRepeater()
 			->endGroup()
 
 			/*--- USTAWIENIA BLOKU ---*/
@@ -112,8 +119,11 @@ public $supports = [
 
 	public function with(): array
 	{
+		$ghero = get_field('g_hero');
+
 		$fields = [
-			'g_hero' => get_field('g_hero'),
+			'g_hero' => $ghero,
+			'slides' => $ghero['r_hero'] ?? [],
 
 			'section_id' => get_field('section_id'),
 			'section_class' => get_field('section_class'),

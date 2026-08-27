@@ -17,7 +17,7 @@
 		@if (!empty($g_banner['image']))
 		<x-picture
 			:image="$g_banner['image']"
-			figureClass="__img h-[50vh] lg:h-full w-full [&>picture]:block [&>picture]:h-full [&>picture]:w-full"
+			figureClass="__img h-[35vh] lg:h-full w-full [&>picture]:block [&>picture]:h-full [&>picture]:w-full"
 			class="h-full w-full object-cover"
 			data-gsap-element="img" />
 		@endif

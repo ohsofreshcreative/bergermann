@@ -1,4 +1,10 @@
 .b-hero {
+	.slider-hero,
+	.slider-hero .swiper-wrapper,
+	.slider-hero .swiper-slide {
+		height: 100%;
+	}
+
 	.__txt {
 
 		h1,
@@ -79,5 +85,80 @@
 		background: radial-gradient(circle,
 				var(--colors-bg-s-lighter, #fbcce5) 0%,
 				transparent 70%);
+	}
+
+	.__pixels {
+		position: relative;
+		display: block;
+		width: 56px;
+		height: 56px;
+		margin-bottom: 20px;
+
+		i {
+			position: absolute;
+			width: 32px;
+			height: 32px;
+			background: var(--color-secondary-800);
+		}
+
+		i:first-child {
+			left: 24px;
+			top: 0;
+		}
+
+		i:last-child {
+			left: 0;
+			top: 24px;
+			background: var(--color-secondary);
+		}
+	}
+
+	.__squares {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		pointer-events: none;
+
+		i {
+			position: absolute;
+			width: 56px;
+			height: 56px;
+		}
+
+		i:nth-child(1) {
+			top: 13%;
+			left: 14%;
+			background: var(--color-primary-dark);
+		}
+
+		i:nth-child(2) {
+			top: 31%;
+			left: 28%;
+			background: var(--color-secondary-300);
+		}
+
+		i:nth-child(3) {
+			top: 59%;
+			left: 14%;
+			background: var(--color-white);
+		}
+
+		i:nth-child(4) {
+			top: 50%;
+			left: 87%;
+			background: var(--color-primary);
+		}
+
+		i:nth-child(5) {
+			top: 79%;
+			left: 74%;
+			background: var(--color-secondary-800);
+		}
+
+		i:nth-child(6) {
+			top: 86%;
+			left: 80%;
+			background: var(--color-secondary);
+		}
 	}
 }

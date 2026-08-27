@@ -17,6 +17,7 @@ import './footer-accordion.js';
 document.addEventListener('DOMContentLoaded', () => {
   if (document.querySelector('.b-reviews')) import('./blocks/reviews');
   if (document.querySelector('.b-tabs')) import('./blocks/tabs');
+  if (document.querySelector('.b-hero')) import('./blocks/hero-slider');
   if (document.querySelector('.b-slider')) import('./blocks/slider');
   if (document.querySelector('.b-steps')) import('./blocks/steps');
   if (document.querySelector('.b-catalogues')) import('./blocks/catalogues');

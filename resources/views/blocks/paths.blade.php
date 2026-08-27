@@ -14,7 +14,7 @@
 		<img class="absolute z-10 opacity-10 -bottom-80 -left-80" src="{{ get_template_directory_uri() }}/resources/images/shape.svg" />
 
 		@if (!empty($r_paths))
-		<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+		<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
 			@foreach ($r_paths as $item)
 			<div data-gsap-element="card" class="__card relative overflow-hidden p-12 aspect-square">
 				@if (!empty($item['image']['url']))

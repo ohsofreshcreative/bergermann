@@ -19,7 +19,7 @@
 			@if (!empty($r_packages1))
 			<div class="grid gap-8 mt-10">
 				@foreach ($r_packages1 as $item)
-				<div data-gsap-element="card" class="__card relative bg-white">
+				<div data-gsap-element="card" class="__card relative">
 					<div class="__header bg-primary-dark p-8">
 						@if (!empty($item['title']))
 						<p class="text-h5 text-white">{{ $item['header'] }}</p>
@@ -41,7 +41,7 @@
 			@if (!empty($r_packages2))
 			<div class="grid gap-8 mt-10">
 				@foreach ($r_packages2 as $item)
-				<div data-gsap-element="card" class="__card relative bg-white">
+				<div data-gsap-element="card" class="__card relative">
 					<div class="__header bg-primary-dark p-8">
 						@if (!empty($item['title']))
 						<p class="text-h5 text-white">{{ $item['header'] }}</p>
@@ -63,7 +63,7 @@
 			@if (!empty($r_packages3))
 			<div class="grid gap-8 mt-10">
 				@foreach ($r_packages3 as $item)
-				<div data-gsap-element="card" class="__card relative bg-white">
+				<div data-gsap-element="card" class="__card relative">
 					<div class="__header bg-primary-dark p-8">
 						@if (!empty($item['title']))
 						<p class="text-h5 text-white">{{ $item['header'] }}</p>
