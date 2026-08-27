@@ -10,9 +10,9 @@
 	])>
 
 	<div class="__wrapper c-main">
-		<div class="__top">
-			<h3 data-gsap-element="header" class="m-header">{{ strip_tags($g_cards['header']) }}</h3>
-			<p data-gsap-element="text">{{ $g_cards['text'] }}</p>
+		<div class="__top w-full md:w-2/3">
+			<h3 data-gsap-element="header">{{ strip_tags($g_cards['header']) }}</h3>
+			<p data-gsap-element="text" class="m-header">{{ $g_cards['text'] }}</p>
 		</div>
 
 		@if (!empty($r_cards))

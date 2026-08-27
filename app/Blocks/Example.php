@@ -33,6 +33,7 @@ class Example extends Block
 			->addTab('Elementy', ['placement' => 'top'])
 			->addGroup('g_example', ['label' => ''])
 			->addText('header', ['label' => 'Nagłówek'])
+			->addText('txt', ['label' => 'Opis'])
 			->addImage('logo', [
 				'label' => 'Logo',
 				'return_format' => 'array',

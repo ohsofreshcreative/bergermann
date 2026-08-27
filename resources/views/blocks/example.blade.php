@@ -14,6 +14,10 @@
 		<h3 data-gsap-element="header" class="">{{ $g_example['header'] }}</h3>
 		@endif
 
+		@if (!empty($g_example['txt']))
+		<p data-gsap-element="text" class="mt-4">{{ $g_example['txt'] }}</p>
+		@endif
+
 		@if (!empty($g_example) || !empty($r_example))
 		<div class="__grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
 

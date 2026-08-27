@@ -39,30 +39,27 @@ class Switcher extends Block
 			->addTab('Zakładki', ['placement' => 'top'])
 			->addRepeater('r_switcher', [
 				'label' => 'Zakładki',
-				'layout' => 'table',
+				'layout' => 'block',
 				'min' => 1,
 				'button_label' => 'Dodaj zakładkę',
 			])
 			->addText('title', [
 				'label' => 'Nazwa zakładki',
 				'required' => 1,
-				'wrapper' => [
-					'width' => '20',
-				],
+			])
+			->addRepeater('items', [
+				'label' => 'Elementy',
+				'layout' => 'row',
+				'min' => 1,
+				'button_label' => 'Dodaj element',
 			])
 			->addImage('image', [
 				'label' => 'Obraz',
 				'return_format' => 'array',
 				'preview_size' => 'thumbnail',
-				'wrapper' => [
-					'width' => '10',
-				],
 			])
 			->addText('header', [
 				'label' => 'Nagłówek',
-				'wrapper' => [
-					'width' => '20',
-				],
 			])
 			->addWysiwyg('text', [
 				'label' => 'Treść',
@@ -70,6 +67,11 @@ class Switcher extends Block
 				'toolbar' => 'full',
 				'media_upload' => true,
 			])
+			->addLink('button', [
+				'label' => 'Przycisk',
+				'return_format' => 'array',
+			])
+			->endRepeater()
 			->endRepeater()
 
 			/*--- USTAWIENIA BLOKU ---*/
