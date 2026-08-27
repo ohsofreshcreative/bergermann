@@ -4,6 +4,17 @@ document.querySelectorAll('.b-switcher .__nav').forEach((nav) => {
   let startX = 0;
   let scrollStart = 0;
 
+  // Gradient na krawędziach tylko wtedy, gdy jest jeszcze co przewinąć w danym kierunku
+  const updateScrollFade = () => {
+    const maxScroll = nav.scrollWidth - nav.clientWidth;
+    nav.classList.toggle('can-scroll-left', nav.scrollLeft > 2);
+    nav.classList.toggle('can-scroll-right', nav.scrollLeft < maxScroll - 2);
+  };
+
+  updateScrollFade();
+  nav.addEventListener('scroll', updateScrollFade);
+  window.addEventListener('resize', updateScrollFade);
+
   nav.addEventListener('mousedown', (e) => {
     isDown = true;
     dragged = false;

@@ -44,7 +44,7 @@
     "src": "editor.deps.json"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BAHmI9i8.css",
+    "file": "assets/app-CjBY2tpK.css",
     "name": "app",
     "names": [
       "app.css"
@@ -73,7 +73,7 @@
     ]
   },
   "resources/css/editor.css": {
-    "file": "assets/editor-DK2ySwxC.css",
+    "file": "assets/editor-BUhwBopb.css",
     "name": "editor",
     "names": [
       "editor.css"
@@ -174,7 +174,7 @@
     "src": "resources/images/pointer.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CHj9f5A5.js",
+    "file": "assets/app-CV8H-9fi.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -236,7 +236,7 @@
     ]
   },
   "resources/js/blocks/switcher.js": {
-    "file": "assets/switcher-D9VNlzkV.js",
+    "file": "assets/switcher-CrfuIqix.js",
     "name": "switcher",
     "src": "resources/js/blocks/switcher.js",
     "isDynamicEntry": true

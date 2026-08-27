@@ -81,7 +81,8 @@ class Slider extends Block
 
     public function with(): array
     {
-        $selected = get_field('slider_offers') ?: [];
+        $g_slider = get_field('g_slider');
+        $selected = $g_slider['slider_offers'] ?? [];
 
         if (empty($selected)) {
             $offers_query = new \WP_Query([
@@ -113,7 +114,7 @@ class Slider extends Block
 
         $fields = [
             'slides'       => $slides,
-			'g_slider' => get_field('g_slider'),
+			'g_slider' => $g_slider,
             'section_id'   => get_field('section_id'),
             'section_class' => get_field('section_class'),
             'nomt'         => (bool) get_field('nomt'),
