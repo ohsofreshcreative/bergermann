@@ -32,7 +32,7 @@ $stepNavColor = $background === 'section-secondary' ? 'bg-secondary-900' : 'bg-p
 		@endif
 
 		@if (!empty($r_steps))
-		<div class="steps-swiper swiper relative  overflow-hidden mt-10">
+		<div data-gsap-element="swiper" class="steps-swiper swiper relative  overflow-hidden mt-10">
 			<div class="swiper-wrapper">
 				@foreach ($r_steps as $item)
 				@php

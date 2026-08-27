@@ -26,7 +26,7 @@
 		@if (!empty($r_switcher))
 		<div x-data="{ activeTab: 0 }" class="__switcher flex flex-col gap-10">
 			<div
-				class="__nav flex flex-wrap gap-3"
+				class="__nav flex flex-nowrap gap-3 overflow-x-auto cursor-grab select-none active:cursor-grabbing"
 				role="tablist"
 				aria-label="{{ $g_switcher['header'] ?? 'Wybierz zakładkę' }}">
 				@foreach ($r_switcher as $group)
@@ -40,8 +40,8 @@
 					:aria-selected="activeTab === {{ $loop->index }}"
 					:tabindex="activeTab === {{ $loop->index }} ? 0 : -1"
 					aria-controls="{{ $switcherId }}-panel-{{ $loop->index }}"
-					:class="activeTab === {{ $loop->index }} ? 'border-primary bg-primary text-white' : 'border-primary-100 bg-white text-primary hover:border-primary'"
-					class="cursor-pointer border px-6 py-4 text-center transition-colors">
+					:class="activeTab === {{ $loop->index }} ? 'border-primary bg-primary text-white' : 'border-primary-100 bg-white text-primary-700 font-medium hover:border-primary'"
+					class="cursor-pointer whitespace-nowrap shrink-0 border px-4 py-2 text-center transition-colors">
 					{{ $group['title'] }}
 				</button>
 				@endforeach

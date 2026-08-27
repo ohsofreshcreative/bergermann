@@ -3,6 +3,16 @@
     --dark: #E6E6E6EE;
 }
 
+.b-slider .swiper-slide a:hover .btn-underline,
+.b-slider .swiper-slide a:focus-within .btn-underline {
+    color: var(--color-secondary-hover);
+}
+
+.b-slider .swiper-slide a:hover .btn-underline::after,
+.b-slider .swiper-slide a:focus-within .btn-underline::after {
+    margin-left: 12px;
+}
+
 .slider-standard.swiper {
     width: 100%;
 }

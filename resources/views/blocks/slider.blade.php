@@ -23,11 +23,11 @@
 			@endif
 		</div>
 		@endif
-		<div class="swiper slider-standard relative !overflow-visible z-20 mt-10">
+		<div data-gsap-element="swiper" class="swiper slider-standard relative !overflow-visible z-20 mt-10">
 			<div class="swiper-wrapper">
 				@foreach ($slides as $slide)
 				<div class="swiper-slide mr-8">
-					<div class="bg-white h-full px-8 py-12 flex flex-col">
+					<a href="{{ $slide['url'] }}" class="bg-white h-full px-8 py-12 flex flex-col">
 						@if (!empty($slide['image_url']))
 						<figure class="relative m-0 overflow-hidden flex-1">
 							<img
@@ -40,17 +40,17 @@
 							<div class="absolute top-0 left-0 w-18 h-18 bg-secondary-lighter rounded-br-3xl"></div>
 						</figure>
 						@endif
-						<div class="__content ">
+						<div class="__content">
 							@if (!empty($slide['icon_url']))
 							<img class="mb-4 w-14 h-14 object-contain" src="{{ $slide['icon_url'] }}" alt="{{ $slide['icon_alt'] }}">
 							@endif
-							<p class="text-h5 text-primary mb-4">{{ $slide['title'] }}</p>
+							<p class="text-h6 text-primary mb-4">{{ $slide['title'] }}</p>
 							@if (!empty($slide['excerpt']))
 							<p class="mb-6">{{ $slide['excerpt'] }}</p>
 							@endif
-							<x-button class="m-btn" :href="$slide['url']" variant="underline">Sprawdź szczegóły</x-button>
+							<x-button class="m-btn" tag="button" variant="underline">Sprawdź szczegóły</x-button>
 						</div>
-					</div>
+					</a>
 				</div>
 				@endforeach
 			</div>
